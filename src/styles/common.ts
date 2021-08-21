@@ -1,5 +1,6 @@
 import { css } from "lit";
 import { palette } from "./palette";
+import { cssTransition } from "./utils";
 
 export const commonStyles = css`
   html, body {
@@ -10,6 +11,7 @@ export const commonStyles = css`
   a {
     text-decoration: none !important;
     color: ${palette.blue100};
+    ${cssTransition("color")};
   }
   a:hover {
     color: ${palette.blue60};

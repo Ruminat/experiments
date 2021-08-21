@@ -24,9 +24,9 @@ export class App extends LitElement {
           </code></pre>
         </div>
 
-        <rm-button @click=${this.yeah} .theme=${rmButtonClasses.danger.toString()}>No!</rm-button>
-        <rm-button @click=${this.yeah} .theme=${rmButtonClasses.default.toString()}>OK</rm-button>
-        <rm-button @click=${this.yeah} .theme=${rmButtonClasses.success.toString()}>Yeah!</rm-button>
+        <rm-button @click=${this.yeah} .disabled=${true} .theme=${rmButtonClasses.danger.toString()}>No!</rm-button>
+        <rm-button @click=${this.yeah} .disabled=${true} .theme=${rmButtonClasses.default.toString()}>OK</rm-button>
+        <rm-button @click=${this.yeah} .disabled=${true} .theme=${rmButtonClasses.success.toString()}>Yeah!</rm-button>
 
         <div class="square">!</div>
       </div>

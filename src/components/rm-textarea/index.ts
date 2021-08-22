@@ -1,4 +1,4 @@
-import { LitElement, css, html } from "lit";
+import { LitElement, css, html, TemplateResult } from "lit";
 import { customElement, property } from "lit/decorators";
 import { noop } from "../../common/functions/utils";
 import { palette } from "../../styles/palette";
@@ -12,7 +12,8 @@ export const rmTextareaClasses = {
 
 @customElement('rm-textarea')
 export class RmTextarea extends LitElement {
-  @property({ type: String }) public value = '';
+  @property({ type: String }) public value = "";
+  @property({ type: String }) public placeholder = "";
   @property({ type: String }) public inputState = rmTextareaClasses.default.toString();
   @property({ type: Boolean }) public disabled = false;
   @property({ type: Boolean }) public spellcheck = false;
@@ -23,10 +24,11 @@ export class RmTextarea extends LitElement {
   public onInput: (event: InputEvent) => void = noop;
   public onChange: (event: InputEvent) => void = noop;
 
-  render() {
+  render(): TemplateResult {
     return html`
       <textarea
         class="rm-textarea ${this.inputState}"
+        placeholder="${this.placeholder}"
         ?disabled=${this.disabled}
         spellcheck="${this.spellcheck}"
         rows=${this.rows}

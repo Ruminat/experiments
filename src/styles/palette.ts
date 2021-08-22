@@ -27,8 +27,6 @@ export const palette = {
   red60: css`#ff9466`,
   red50: css`#ffa680`,
 
-  // green: css`#40f99b`,
-  // green: css`#40f900`,
   green100: css`#09bc8a`,
   green90: css`#22c396`,
   green80: css`#3ac9a1`,

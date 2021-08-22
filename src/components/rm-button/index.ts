@@ -14,7 +14,7 @@ export class RmButton extends LitElement {
   @property({ type: String }) public theme = rmButtonClasses.default.toString();
   @property({ type: Boolean }) public disabled = false;
 
-  render() {
+  render(): TemplateResult {
     return html`
       <button class="rm-button ${this.theme}" ?disabled=${this.disabled}>
         <slot></slot>

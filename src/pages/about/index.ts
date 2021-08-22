@@ -50,8 +50,8 @@ export class PageAbout extends LitElement {
     return html`
       <p>You can also check out my curriculum vitae:</p>
       <div class="cv-block">
-        <a href="https://ruminat.ru/en" class="list-link">— 🇬🇧 in English</a>
-        <a href="https://ruminat.ru" class="list-link">— 🇷🇺 in Russian</a>
+        <a href="https://ruminat.ru/en" class="list-link" target="_blank">— 🇬🇧 in English</a>
+        <a href="https://ruminat.ru" class="list-link" target="_blank">— 🇷🇺 in Russian</a>
       </div>
     `;
   };

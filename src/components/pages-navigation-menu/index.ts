@@ -3,7 +3,7 @@ import "../rm-icon";import { LitElement, css, html, TemplateResult } from "lit";
 import { customElement, property } from "lit/decorators";
 import { commonStyles } from "../../styles/common";
 import { palette } from "../../styles/palette";
-import { flexAlignItems, flexFullAlign, size } from "../../styles/utils";
+import { cssTransition, flexAlignItems, flexFullAlign, size } from "../../styles/utils";
 import { ENavigationPages, tagName } from "./definitions";
 import { svgHome, svgInfo } from "../rm-icon/icons";
 
@@ -52,6 +52,7 @@ export class PagesNavigationMenu extends LitElement {
       height: 100%;
       color: ${palette.white};
       padding: ${size(1)} ${size(2)};
+      ${cssTransition("background")};
     }
     .menu-link:hover,
     .menu-link.active {

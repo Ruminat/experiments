@@ -5,8 +5,9 @@ import { LitElement, html, css } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { commonStyles, pageStyles } from './../../styles/common';
 import { tagName } from "./definitions";
-import { size } from "../../styles/utils";
+import { flexFullAlign, size, square } from "../../styles/utils";
 import { palette } from "../../styles/palette";
+import { svgJapaneseExperiment } from "../../components/rm-icon/icons";
 
 @customElement(tagName)
 export class PageExperimentJapanese extends LitElement {
@@ -16,7 +17,10 @@ export class PageExperimentJapanese extends LitElement {
         <pages-navigation-menu></pages-navigation-menu>
 
         <div class="page-content">
-          <h2>Japanese language tools</h2>
+          <h2 class="page-header">
+            <rm-icon class="header-icon" .icon=${svgJapaneseExperiment}></rm-icon>
+            Japanese language tools
+          </h2>
           <div class="label">
             Type the Japanese you want to simplify and press Enter
             (e.g. 知識豊富な人は実は馬鹿だ)
@@ -35,6 +39,15 @@ export class PageExperimentJapanese extends LitElement {
     .label {
       margin-bottom: ${size(1 / 2)};
       color: ${palette.gray80};
+    }
+
+    .page-header {
+      ${flexFullAlign()};
+    }
+
+    .header-icon {
+      ${square(6)};
+      margin-right: ${size(1)};
     }
   `;
 }

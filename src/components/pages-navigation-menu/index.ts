@@ -1,5 +1,6 @@
 
-import "../rm-icon";import { LitElement, css, html, TemplateResult } from "lit";
+import "../rm-icon";
+import { LitElement, css, html, TemplateResult } from "lit";
 import { customElement, property } from "lit/decorators";
 import { commonStyles } from "../../styles/common";
 import { palette } from "../../styles/palette";

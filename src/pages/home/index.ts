@@ -37,7 +37,7 @@ export class PageHome extends LitElement {
             </div>
             <div class="content">
               <h3>
-                <a href="https://github.com/Ruminat/prettyCalque">Reactive calculator</a>
+                <a href="/pages/calq">Reactive calculator</a>
                 (fork of <a href="https://github.com/grimalschi/calque">Calque</a>)
               </h3>
               <p>

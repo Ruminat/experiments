@@ -8,7 +8,7 @@ import { cssBorder, cssBorderRadius, flexFullAlign, size, square } from './style
 import { rmButtonClasses } from "./components/rm-button";
 import { palette } from "./styles/palette";
 
-@customElement('rm-app')
+@customElement("rm-app")
 export class App extends LitElement {
   render() {
     return html`
@@ -65,6 +65,6 @@ export class App extends LitElement {
 
 declare global {
   interface HTMLElementTagNameMap {
-    'rm-app': App;
+    "rm-app": App;
   }
 }

@@ -1,6 +1,6 @@
 import { LitElement, css, html, TemplateResult } from "lit";
 import { customElement, property } from "lit/decorators";
-import { noop } from "../../common/functions/utils";
+import { noop } from "../../lib/functions/utils";
 import { palette } from "../../styles/palette";
 import { cssBorder, cssBorderRadius, cssClass, cssTransition, size } from "../../styles/utils";
 

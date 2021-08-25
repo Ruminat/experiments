@@ -1,13 +1,11 @@
 
 import "../../components/rm-textarea";import "../../components/pages-navigation-menu";
-import { LitElement, html, css, PropertyValues } from 'lit';
+import { LitElement, html, css } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { commonStyles, pageStyles } from './../../styles/common';
 import { tagName } from "./definitions";
 import { flexFullAlign, size, square } from "../../styles/utils";
 import { palette } from "../../styles/palette";
-
-const delay = (ms: number): Promise<void> => new Promise((resolve) => setTimeout(resolve, ms));
 
 @customElement(tagName)
 export class PageExperimentCalq extends LitElement {

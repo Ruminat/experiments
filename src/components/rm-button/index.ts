@@ -1,17 +1,18 @@
-import { LitElement, css, html } from "lit";
+import { LitElement, css, html, TemplateResult } from "lit";
 import { customElement, property } from "lit/decorators";
 import { palette } from "../../styles/palette";
 import { cssBorder, cssBorderRadius, cssClass, cssTransition, size } from "../../styles/utils";
+import { tagName } from "./definitions";
 
-export const rmButtonClasses = {
+export const rmButtonThemes = {
   default: cssClass("default"),
   danger: cssClass("danger"),
   success: cssClass("success"),
 };
 
-@customElement('rm-button')
+@customElement(tagName)
 export class RmButton extends LitElement {
-  @property({ type: String }) public theme = rmButtonClasses.default.toString();
+  @property({ type: String }) public theme = rmButtonThemes.default.toString();
   @property({ type: Boolean }) public disabled = false;
 
   render(): TemplateResult {
@@ -47,20 +48,20 @@ export class RmButton extends LitElement {
       cursor: not-allowed;
     }
 
-    button.rm-button.${rmButtonClasses.danger.css} { background: ${palette.red100}; }
-    button.rm-button.${rmButtonClasses.danger.css}:hover { background: ${palette.red90}; }
-    button.rm-button.${rmButtonClasses.danger.css}:active { background: ${palette.red80}; }
-    button.rm-button.${rmButtonClasses.danger.css}:disabled { background: ${palette.red50}; }
+    button.rm-button.${rmButtonThemes.danger.css} { background: ${palette.red100}; }
+    button.rm-button.${rmButtonThemes.danger.css}:hover { background: ${palette.red90}; }
+    button.rm-button.${rmButtonThemes.danger.css}:active { background: ${palette.red80}; }
+    button.rm-button.${rmButtonThemes.danger.css}:disabled { background: ${palette.red50}; }
 
-    button.rm-button.${rmButtonClasses.success.css} { background: ${palette.green100}; }
-    button.rm-button.${rmButtonClasses.success.css}:hover { background: ${palette.green90}; }
-    button.rm-button.${rmButtonClasses.success.css}:active { background: ${palette.green80}; }
-    button.rm-button.${rmButtonClasses.success.css}:disabled { background: ${palette.green50}; }
+    button.rm-button.${rmButtonThemes.success.css} { background: ${palette.green100}; }
+    button.rm-button.${rmButtonThemes.success.css}:hover { background: ${palette.green90}; }
+    button.rm-button.${rmButtonThemes.success.css}:active { background: ${palette.green80}; }
+    button.rm-button.${rmButtonThemes.success.css}:disabled { background: ${palette.green50}; }
   `;
 }
 
 declare global {
   interface HTMLElementTagNameMap {
-    "rm-button": RmButton;
+    [tagName]: RmButton;
   }
 }

@@ -1,0 +1,1 @@
+export const tagName = "get-random-number-form";

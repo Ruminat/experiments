@@ -7,6 +7,8 @@ import { palette } from "../../styles/palette";
 import { cssTransition, flexAlignItems, flexFullAlign, size } from "../../styles/utils";
 import { ENavigationPages, tagName } from "./definitions";
 import { svgHome, svgInfo } from "../rm-icon/icons";
+import { getPageHomeUrl } from "../../pages/home/route";
+import { getPageAboutUrl } from "../../pages/about/route";
 
 @customElement(tagName)
 export class PagesNavigationMenu extends LitElement {
@@ -25,11 +27,11 @@ export class PagesNavigationMenu extends LitElement {
   protected renderMenuLinks = () => {
     return html`
       <div class="menu-links">
-        <a href="/" class="menu-link ${this.activeCls(ENavigationPages.HOME)}">
+        <a href="${getPageHomeUrl()}" class="menu-link ${this.activeCls(ENavigationPages.HOME)}">
           <rm-icon .icon=${svgHome}></rm-icon>
           Home
         </a>
-        <a href="/pages/about" class="menu-link ${this.activeCls(ENavigationPages.ABOUT)}">
+        <a href="${getPageAboutUrl()}" class="menu-link ${this.activeCls(ENavigationPages.ABOUT)}">
           <rm-icon .icon=${svgInfo}></rm-icon>
           About
         </a>

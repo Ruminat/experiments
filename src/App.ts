@@ -5,7 +5,7 @@ import { LitElement, html, css } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { commonStyles } from './styles/common';
 import { cssBorder, cssBorderRadius, flexFullAlign, size, square } from './styles/utils';
-import { rmButtonClasses } from "./components/rm-button";
+import { rmButtonThemes } from "./components/rm-button";
 import { palette } from "./styles/palette";
 
 @customElement("rm-app")
@@ -24,9 +24,9 @@ export class App extends LitElement {
           </code></pre>
         </div>
 
-        <rm-button @click=${this.yeah} .disabled=${true} .theme=${rmButtonClasses.danger.toString()}>No!</rm-button>
-        <rm-button @click=${this.yeah} .disabled=${true} .theme=${rmButtonClasses.default.toString()}>OK</rm-button>
-        <rm-button @click=${this.yeah} .disabled=${true} .theme=${rmButtonClasses.success.toString()}>Yeah!</rm-button>
+        <rm-button @click=${this.yeah} .disabled=${true} .theme=${rmButtonThemes.danger.toString()}>No!</rm-button>
+        <rm-button @click=${this.yeah} .disabled=${true} .theme=${rmButtonThemes.default.toString()}>OK</rm-button>
+        <rm-button @click=${this.yeah} .disabled=${true} .theme=${rmButtonThemes.success.toString()}>Yeah!</rm-button>
 
         <div class="square">!</div>
       </div>

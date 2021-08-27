@@ -10,6 +10,7 @@ import { svgGithub, svgGmail, svgTelegram, svgVK } from "../../components/rm-ico
 import { TIcon } from "../../components/rm-icon/definitions";
 import { tagName } from "./definitions";
 import { ENavigationPages } from "../../components/pages-navigation-menu/definitions";
+import { externalUrls } from "../../common/urls/definitions";
 
 @customElement(tagName)
 export class PageAbout extends LitElement {
@@ -37,10 +38,10 @@ export class PageAbout extends LitElement {
     return html`
       <div class="contacts-block-wrapper">
         <div class="contacts">
-          ${this.renderIconLink("Blowlyge@gmail.com (Email)", svgGmail, "mailto:Blowlyge@gmail.com")}
-          ${this.renderIconLink("WhatIsLove_Furman (VK)", svgVK, "https://vk.com/whatislove_furman")}
-          ${this.renderIconLink("Ruminat (Telegram)", svgTelegram, "https://t.me/Ruminat")}
-          ${this.renderIconLink("Ruminat (GitHub)", svgGithub, "https://github.com/Ruminat")}
+          ${this.renderIconLink("Blowlyge@gmail.com (Email)", svgGmail, externalUrls.contacts.email)}
+          ${this.renderIconLink("WhatIsLove_Furman (VK)", svgVK, externalUrls.contacts.vk)}
+          ${this.renderIconLink("Ruminat (Telegram)", svgTelegram, externalUrls.contacts.telegram)}
+          ${this.renderIconLink("Ruminat (GitHub)", svgGithub, externalUrls.contacts.github)}
         </div>
       </div>
     `;
@@ -50,8 +51,8 @@ export class PageAbout extends LitElement {
     return html`
       <p>You can also check out my curriculum vitae:</p>
       <div class="cv-block">
-        <a href="https://ruminat.ru/en" class="list-link" target="_blank">— 🇬🇧 in English</a>
-        <a href="https://ruminat.ru" class="list-link" target="_blank">— 🇷🇺 in Russian</a>
+        <a href="${externalUrls.cv.ru}" class="list-link" target="_blank">— 🇬🇧 in English</a>
+        <a href="${externalUrls.cv.en}" class="list-link" target="_blank">— 🇷🇺 in Russian</a>
       </div>
     `;
   };

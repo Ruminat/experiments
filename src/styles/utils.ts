@@ -9,6 +9,18 @@ export const square = (sideSize = 1) => unsafeCSS(`
   height: ${size(sideSize)}
 `);
 
+export const cssPadding = (top?: number, right?: number, bottom?: number, left?: number) => {
+  if (top && !right && !bottom && !left) {
+    return unsafeCSS(`padding: ${size(top)}`);
+  } else if (top && right && !bottom && !left) {
+    return unsafeCSS(`padding: ${size(top)} ${size(right)}`);
+  } else if (top && right && bottom && left) {
+    return unsafeCSS(`padding: ${size(top)} ${size(right)} ${size(bottom)} ${size(left)}`);
+  } else {
+    throw new Error(`BITCH, WHAT DO YOU WANT? cssPadding(${top}, ${right}, ${bottom}, ${left})`);
+  }
+};
+
 export const cssBorder = (width = "1px", color = palette.gray01, type = "solid") => unsafeCSS(`border: ${width} ${type} ${color}`);
 export const cssBorderRadius = (width = size(3 / 5)) => unsafeCSS(`border-radius: ${width}`);
 export const cssTransition = (type = "background", time = "80ms") => unsafeCSS(`transition: ${type} ${time}`);

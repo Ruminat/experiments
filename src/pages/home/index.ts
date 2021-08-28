@@ -8,7 +8,7 @@ import { commonStyles, pageStyles } from './../../styles/common';
 import { tagName } from "./definitions";
 import { ENavigationPages } from "../../components/pages-navigation-menu/definitions";
 import { svgCalqExperiment, svgJapaneseExperiment, svgRandomExperiment } from "../../components/rm-icon/icons";
-import { size, square } from "../../styles/utils";
+import { size, cssSquare } from "../../styles/utils";
 import { getPageJapaneseUrl } from "../../experiments/japanese/route";
 import { getPageCalqUrl } from "../../experiments/calq/route";
 import { externalUrls } from "../../common/urls/definitions";
@@ -84,7 +84,7 @@ export class PageHome extends LitElement {
     }
 
     .experiment-image {
-      ${square(6)};
+      ${cssSquare(6)};
       margin-right: ${size(2)};
     }
   `;

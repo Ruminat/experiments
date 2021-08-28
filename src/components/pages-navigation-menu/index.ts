@@ -4,7 +4,7 @@ import { LitElement, css, html, TemplateResult } from "lit";
 import { customElement, property } from "lit/decorators";
 import { commonStyles } from "../../styles/common";
 import { palette } from "../../styles/palette";
-import { cssTransition, flexAlignItems, flexFullAlign, size } from "../../styles/utils";
+import { cssTransition, cssFlexAlignItems, cssFlexFullAlign, size } from "../../styles/utils";
 import { ENavigationPages, tagName } from "./definitions";
 import { svgHome, svgInfo } from "../rm-icon/icons";
 import { getPageHomeUrl } from "../../pages/home/route";
@@ -47,11 +47,11 @@ export class PagesNavigationMenu extends LitElement {
     }
 
     .menu-links {
-      ${flexFullAlign()};
+      ${cssFlexFullAlign()};
     }
 
     .menu-link {
-      ${flexAlignItems()};
+      ${cssFlexAlignItems()};
       height: 100%;
       color: ${palette.white};
       padding: ${size(1)} ${size(2)};

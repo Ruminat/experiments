@@ -5,7 +5,7 @@ import "../../components/rm-icon";
 import { LitElement, html, css, TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { commonStyles, pageStyles } from './../../styles/common';
-import { flexAlignItems, size, square } from './../../styles/utils';
+import { cssFlexAlignItems, size, cssSquare } from './../../styles/utils';
 import { svgGithub, svgGmail, svgTelegram, svgVK } from "../../components/rm-icon/icons";
 import { TIcon } from "../../components/rm-icon/definitions";
 import { tagName } from "./definitions";
@@ -92,11 +92,11 @@ export class PageAbout extends LitElement {
     }
 
     .icon-link {
-      ${flexAlignItems("inline-flex")};
+      ${cssFlexAlignItems("inline-flex")};
     }
 
     .contacts rm-icon {
-      ${square(2.5)};
+      ${cssSquare(2.5)};
       margin: 0 ${size(1)};
     }
 

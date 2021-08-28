@@ -1,8 +1,11 @@
 import { LitElement, css, html, TemplateResult } from "lit";
-import { customElement, property } from "lit/decorators";
+import { customElement, property, state } from "lit/decorators";
+import { TFormValidator } from "../../common/forms/definitions";
+import { hasValidationError } from "../../common/forms/utils";
 import { noop } from "../../lib/functions/utils";
 import { palette } from "../../styles/palette";
-import { cssBorder, cssBorderRadius, cssClass, cssPadding, cssTransition } from "../../styles/utils";
+import { fontSize } from "../../styles/text";
+import { cssBorder, cssBorderRadius, cssClass, cssPadding, cssTransition, size } from "../../styles/utils";
 import { tagName } from "./definitions";
 
 export const rmInputClasses = {
@@ -14,14 +17,22 @@ export const rmInputClasses = {
 @customElement(tagName)
 export class RmInput extends LitElement {
   @property({ type: String }) public value = "";
+  @property({ type: String }) public name = "";
   @property({ type: String }) public placeholder = "";
   @property({ type: String }) public inputState = rmInputClasses.default.toString();
+  @property({ type: Array }) public validators: TFormValidator[] = [];
   @property({ type: Boolean }) public disabled = false;
 
-  @property({ type: String }) public errorMessage?: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  public onInput: (name: any, value: string) => void = noop;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  public onChange: (name: any, value: string) => void = noop;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  public onValidationChange: (name: any, validation: boolean) => void = noop;
 
-  public onInput: (event: InputEvent) => void = noop;
-  public onChange: (event: InputEvent) => void = noop;
+  @state() protected errorMessage = "";
+
+  protected $input?: HTMLInputElement | null;
 
   render(): TemplateResult {
     return html`
@@ -30,11 +41,45 @@ export class RmInput extends LitElement {
         placeholder="${this.placeholder}"
         value="${this.value}"
         ?disabled=${this.disabled}
-        @input=${this.onInput}
-        @change=${this.onChange}
+        @input=${this.handleInput}
+        @change=${this.handleChange}
       >
+      <div class="error-message">${this.errorMessage}</div>
     `;
   }
+
+  protected getValue = (): string => {
+    if (this.$input) {
+      return this.$input.value;
+    } else {
+      this.$input = this.shadowRoot!.querySelector("input");
+      return this.$input!.value ?? "";
+    }
+  };
+
+  protected handleInput = (): void => {
+    this.onInput(this.name, this.getValue());
+    this.validate();
+  };
+
+  protected handleChange = (): void => {
+    this.onChange(this.name, this.getValue());
+  }
+
+  protected validate = (): void => {
+    const value = this.getValue();
+    for (const validator of this.validators) {
+      const validationResult = validator(value);
+      if (hasValidationError(validationResult)) {
+        this.errorMessage = validationResult.message;
+        this.onValidationChange(this.name, false);
+        return;
+      }
+    }
+
+    this.onValidationChange(this.name, true);
+    if (this.errorMessage !== "") this.errorMessage = "";
+  };
 
   static styles = css`
     :host {
@@ -66,6 +111,12 @@ export class RmInput extends LitElement {
     }
     input.${rmInputClasses.error.css}:focus { border-color: ${palette.red100}; }
     input.${rmInputClasses.success.css}:focus { border-color: ${palette.green100}; }
+
+    .error-message {
+      font-size: ${fontSize.tiny};
+      margin-top: ${size(0.5)};
+      color: ${palette.red100};
+    }
   `;
 }
 

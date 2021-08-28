@@ -4,7 +4,7 @@ import { LitElement, html, css } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { commonStyles, pageStyles } from './../../styles/common';
 import { tagName } from "./definitions";
-import { flexFullAlign, size, square } from "../../styles/utils";
+import { cssFlexFullAlign, size, cssSquare } from "../../styles/utils";
 import { palette } from "../../styles/palette";
 
 @customElement(tagName)
@@ -33,11 +33,11 @@ export class PageExperimentCalq extends LitElement {
     }
 
     .page-header {
-      ${flexFullAlign()};
+      ${cssFlexFullAlign()};
     }
 
     .header-icon {
-      ${square(6)};
+      ${cssSquare(6)};
       margin-right: ${size(1)};
     }
   `;

@@ -3,7 +3,7 @@ import { css, html, LitElement, TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { tagName, TIcon } from "./definitions";
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
-import { flexFullAlign, size } from '../../styles/utils';
+import { cssFlexFullAlign, size, cssSquare } from '../../styles/utils';
 
 @customElement(tagName)
 export class RmIcon extends LitElement {
@@ -15,9 +15,8 @@ export class RmIcon extends LitElement {
 
   static styles = css`
     :host {
-      ${flexFullAlign("inline-flex")};
-      width: ${size(2)};
-      height: ${size(2)};
+      ${cssFlexFullAlign("inline-flex")};
+      ${cssSquare(2)};
       user-select: none;
     }
 

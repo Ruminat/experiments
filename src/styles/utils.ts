@@ -4,10 +4,14 @@ import { palette } from "./palette";
 
 export const size = (units = 1, unitSize = 8, measure = "px") => unsafeCSS(`${unitSize * units}${measure}`);
 
-export const square = (sideSize = 1) => unsafeCSS(`
-  width: ${size(sideSize)};
-  height: ${size(sideSize)}
-`);
+export const getActualSize = (s: string | number): CSSResult => unsafeCSS(typeof s === "number" ? size(s) : s);
+
+export const cssSquare = (sideSize: string | number = 1): CSSResult => {
+  return unsafeCSS(`
+    width: ${getActualSize(sideSize)};
+    height: ${getActualSize(sideSize)};
+  `);
+};
 
 export const cssPadding = (top?: number, right?: number, bottom?: number, left?: number) => {
   if (top && !right && !bottom && !left) {
@@ -21,21 +25,21 @@ export const cssPadding = (top?: number, right?: number, bottom?: number, left?:
   }
 };
 
-export const cssBorder = (width = "1px", color = palette.gray01, type = "solid") => unsafeCSS(`border: ${width} ${type} ${color}`);
+export const cssBorder = (width = "1px", color = palette.gray10, type = "solid") => unsafeCSS(`border: ${width} ${type} ${color}`);
 export const cssBorderRadius = (width = size(3 / 5)) => unsafeCSS(`border-radius: ${width}`);
 export const cssTransition = (type = "background", time = "80ms") => unsafeCSS(`transition: ${type} ${time}`);
 
-export const flexAlignItems = (flex = "flex", align = "center") => unsafeCSS(`
+export const cssFlexAlignItems = (flex = "flex", align = "center") => unsafeCSS(`
   display: ${flex};
   align-items: ${align};
 `);
 
-export const flexJustifyContent = (flex = "flex", align = "center") => unsafeCSS(`
+export const cssFlexJustifyContent = (flex = "flex", align = "center") => unsafeCSS(`
   display: ${flex};
   justify-content: ${align};
 `);
 
-export const flexFullAlign = (flex = "flex", align = "center") => unsafeCSS(`
+export const cssFlexFullAlign = (flex = "flex", align = "center") => unsafeCSS(`
   display: ${flex};
   align-items: ${align};
   justify-content: ${align};

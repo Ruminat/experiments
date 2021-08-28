@@ -4,7 +4,7 @@ import "./components/rm-button";
 import { LitElement, html, css } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { commonStyles } from './styles/common';
-import { cssBorder, cssBorderRadius, flexFullAlign, size, square } from './styles/utils';
+import { cssBorder, cssBorderRadius, cssPadding, cssFlexFullAlign, size, cssSquare } from './styles/utils';
 import { rmButtonThemes } from "./components/rm-button";
 import { palette } from "./styles/palette";
 
@@ -43,14 +43,14 @@ export class App extends LitElement {
     .content {
       display: block;
 
-      padding: ${size(2)};
+      ${cssPadding(2)};
       ${cssBorder()};
       ${cssBorderRadius()};
     }
 
     .square {
-      ${flexFullAlign()};
-      ${square(16)};
+      ${cssFlexFullAlign()};
+      ${cssSquare(16)};
       font-size: ${size(12)};
       background: ${palette.yellow100};
       border-radius: ${size(1 / 2)};

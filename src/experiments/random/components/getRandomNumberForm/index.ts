@@ -9,6 +9,7 @@ import { customElement, state } from 'lit/decorators';
 import { integerValidator } from '../../../../common/forms/validators';
 import { isFormInvalid } from '../../../../common/forms/utils';
 import { fontSize } from '../../../../styles/text';
+import { randomInt } from '../../../../lib/random/utils';
 
 @customElement(tagName)
 export class GetRandomNumberForm extends LitElement {
@@ -48,6 +49,7 @@ export class GetRandomNumberForm extends LitElement {
           <div class="label">To</div>
           <rm-input
             .value=${this.formValues[EFormFields.TO]}
+            .name=${EFormFields.TO}
             .onInput=${this.inputValueChanged}
             .validators=${this.validators}
             .onValidationChange=${this.validationChanged}
@@ -56,11 +58,12 @@ export class GetRandomNumberForm extends LitElement {
       </div>
 
       <div class="submit-block">
-        <rm-button .disabled=${this.isFormInvalid}>Generate!</rm-button>
+        <rm-button .disabled=${this.isFormInvalid} @click=${this.getRandomInt}>Generate!</rm-button>
       </div>
 
       <div class="result">
-        <div class="result-value">1251251</div>
+        <div class="result-value" style="top: -25px;">1251251</div>
+        <div class="result-value" style="top: 24px;">124</div>
       </div>
     `;
   }
@@ -79,6 +82,12 @@ export class GetRandomNumberForm extends LitElement {
     if (this.isFormInvalid !== formInvalid) {
       this.isFormInvalid = formInvalid;
     }
+  };
+
+  protected getRandomInt = (): void => {
+    const from = Number(this.formValues[EFormFields.FROM]);
+    const to = Number(this.formValues[EFormFields.TO]);
+    console.log("random: ", randomInt(from, to));
   };
 
   static styles = css`

@@ -1,7 +1,7 @@
 export const externalUrls = {
   cv: {
     ru: "https://ruminat.ru",
-    en: "https://ruminat.ru",
+    en: "https://ruminat.ru/en",
   },
   contacts: {
     email: "mailto:Blowlyge@gmail.com",

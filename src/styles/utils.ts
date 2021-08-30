@@ -1,12 +1,15 @@
 import { CSSResult, unsafeCSS } from "lit";
-import { TCssClass } from "./definitions";
+import { TCssClass, TCSSSize } from "./definitions";
 import { palette } from "./palette";
+
+export const cls = (className: string): string => `.${className}`;
+export const cssCls = (className: string): CSSResult => unsafeCSS(`.${className}`);
 
 export const size = (units = 1, unitSize = 8, measure = "px") => unsafeCSS(`${unitSize * units}${measure}`);
 
-export const getActualSize = (s: string | number): CSSResult => unsafeCSS(typeof s === "number" ? size(s) : s);
+export const getActualSize = (s: TCSSSize): CSSResult => unsafeCSS(typeof s === "number" ? size(s) : s);
 
-export const cssSquare = (sideSize: string | number = 1): CSSResult => {
+export const cssSquare = (sideSize: TCSSSize = 1): CSSResult => {
   return unsafeCSS(`
     width: ${getActualSize(sideSize)};
     height: ${getActualSize(sideSize)};
@@ -25,8 +28,9 @@ export const cssPadding = (top?: number, right?: number, bottom?: number, left?:
   }
 };
 
-export const cssBorder = (width = "1px", color = palette.gray10, type = "solid") => unsafeCSS(`border: ${width} ${type} ${color}`);
-export const cssBorderRadius = (width = size(3 / 5)) => unsafeCSS(`border-radius: ${width}`);
+export const cssBorder = (width = "1px", color = palette.gray10, type = "solid") =>
+  unsafeCSS(`border: ${width} ${type} ${color}`);
+export const cssBorderRadius = (width: TCSSSize = size(3 / 5)) => unsafeCSS(`border-radius: ${getActualSize(width)}`);
 export const cssTransition = (type = "background", time = "80ms") => unsafeCSS(`transition: ${type} ${time}`);
 
 export const cssFlexAlignItems = (flex = "flex", align = "center") => unsafeCSS(`

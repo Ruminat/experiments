@@ -2,5 +2,10 @@ export const tagName = "get-random-number-form";
 
 export enum EFormFields {
   FROM = "from",
-  TO = "to"
+  TO = "to",
+}
+
+export enum classNames {
+  RESULT = "result",
+  RESULT_VALUE = "result-value",
 }

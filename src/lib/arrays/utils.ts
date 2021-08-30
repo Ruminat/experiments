@@ -15,3 +15,8 @@ export function shuffle<T>(arr: T[]): T[] {
   }
   return arr;
 }
+
+export function coerceToArray<T>(elements: T[] | NodeListOf<Element> | undefined | null): T[] {
+  if (elements == null) return [];
+  else return Array.from(elements as T[]);
+}

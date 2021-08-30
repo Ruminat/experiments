@@ -27,7 +27,8 @@
       {
         "argsIgnorePattern": "^_"
       }
-    ]
+    ],
+    "@typescript-eslint/no-use-before-define": "off"
   },
   "overrides": [
     {

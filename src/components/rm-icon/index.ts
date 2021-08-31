@@ -3,7 +3,7 @@ import { css, html, LitElement, TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { tagName, TIcon } from "./definitions";
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
-import { cssFlexFullAlign, size, cssSquare } from '../../styles/utils';
+import { cssFlexFullAlign, cssSquare } from '../../styles/utils';
 
 @customElement(tagName)
 export class RmIcon extends LitElement {

@@ -13,6 +13,7 @@ import { randomInt } from '../../../../lib/random/utils';
 import { addToElement, queryExistingElement } from '../../../../lib/lit/utils';
 import { range } from '../../../../lib/generators/utils';
 import { isEnterOnly } from '../../../../common/keyboard/utils';
+import { animate } from '../../../../common/animation/utils';
 
 @customElement(tagName)
 export class GetRandomNumberForm extends LitElement {
@@ -107,11 +108,6 @@ export class GetRandomNumberForm extends LitElement {
     const minDuration = 10;
     const maxDuration = 150;
 
-    // for (let i = 0; i < elementsCount; i++) {
-    //   addToElement($result, `div${cls(classNames.RESULT_VALUE)}`);
-    // }
-    // const $resultElements = queryExistingElements(this, cls(classNames.RESULT_VALUE));
-
     const $result = queryExistingElement(this, cls(classNames.RESULT));
     $result.innerHTML = "";
     let duration: number;
@@ -136,24 +132,11 @@ export class GetRandomNumberForm extends LitElement {
   };
 
   protected animateValue = async ($element: HTMLElement, { duration = 1000, top = -42, bottom = 72 } = {}): Promise<void> => {
-    return new Promise((resolve) => {
-      const start = performance.now();
-      const distance = Math.abs(top - bottom);
-      const frequency = 1 / duration;
-      const currentPosition = (time: number): number => top + ((frequency * time) * distance);
-
-      const frameFn = () => {
-        const time = performance.now() - start;
-        if (time >= duration) {
-          resolve();
-        } else {
-          $element.style.top = `${currentPosition(time)}px`;
-          window.requestAnimationFrame(frameFn);
-        }
-      }
-
-      window.requestAnimationFrame(frameFn);
-    });
+    const distance = Math.abs(top - bottom);
+    await animate((time, frequency) => {
+      const newPosition = top + ((frequency * time) * distance);
+      $element.style.top = `${newPosition}px`;
+    }, { duration });
   };
 
   static styles = css`

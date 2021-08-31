@@ -2,7 +2,7 @@
 import "../rm-loading-circle";import { LitElement, css, html, TemplateResult } from "lit";
 import { customElement, property } from "lit/decorators";
 import { palette } from "../../styles/palette";
-import { cssBorder, cssBorderRadius, cssClass, cssFlexFullAlign, cssSquare, cssTransition, size } from "../../styles/utils";
+import { cssBorder, cssBorderRadius, cssClass, cssSquare, cssTransition, size } from "../../styles/utils";
 import { tagName } from "./definitions";
 
 export const rmButtonThemes = {

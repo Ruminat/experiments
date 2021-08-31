@@ -2,7 +2,7 @@
 import "../rm-icon";import { css, html, LitElement, TemplateResult } from "lit";
 import { customElement, property } from "lit/decorators";
 import { palette } from "../../styles/palette";
-import { cssBorderRadius, cssFlexFullAlign, cssSquare, size } from "../../styles/utils";
+import { cssFlexFullAlign, cssSquare } from "../../styles/utils";
 import { tagName } from "./definitions";
 import { svgLoading } from "../rm-icon/icons";
 

@@ -69,8 +69,7 @@ export class GetRandomNumberForm extends LitElement {
         </rm-button>
       </div>
 
-      <div class="${classNames.RESULT}">
-      </div>
+      <div class="${classNames.RESULT}"></div>
     `;
   }
 
@@ -125,7 +124,6 @@ export class GetRandomNumberForm extends LitElement {
     const resultValue = randomInt(from, to);
     $element.innerText = `${resultValue}`;
     await this.animateValue($element, { duration: 1.5 * maxDuration, bottom: 15 });
-    // $element.remove();
 
     this.result = resultValue;
     this.isLoading = false;

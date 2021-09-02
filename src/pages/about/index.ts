@@ -51,8 +51,8 @@ export class PageAbout extends LitElement {
     return html`
       <p>You can also check out my curriculum vitae:</p>
       <div class="cv-block">
-        <a href="${externalUrls.cv.ru}" class="list-link" target="_blank">— 🇬🇧 in English</a>
-        <a href="${externalUrls.cv.en}" class="list-link" target="_blank">— 🇷🇺 in Russian</a>
+        <a href="${externalUrls.cv.en}" class="list-link" target="_blank">— 🇬🇧 in English</a>
+        <a href="${externalUrls.cv.ru}" class="list-link" target="_blank">— 🇷🇺 in Russian</a>
       </div>
     `;
   };

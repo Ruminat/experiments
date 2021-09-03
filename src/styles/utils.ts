@@ -1,5 +1,5 @@
 import { CSSResult, unsafeCSS } from "lit";
-import { mediaSizeL, mediaSizeM, mediaSizeS, mediaSizesList, mediaSizeXL, TCSS, TCssClass, TCSSSize } from "./definitions";
+import { mediaSizesList, TCSS, TCssClass, TCSSSize } from "./definitions";
 import { palette } from "./palette";
 
 export const cls = (className: string): string => `.${className}`;

@@ -1,6 +1,8 @@
 
+import "../../components/rm-tab";
 import "./components/getRandomNumberForm";
 import "../../components/pages-navigation-menu";
+import "../../components/rm-tabs-container";
 import { LitElement, html, css } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { commonStyles, pageStyles } from '../../styles/common';
@@ -20,6 +22,13 @@ export class PageExperimentRandom extends LitElement {
             <rm-icon class="header-icon" .icon=${svgRandomExperiment}></rm-icon>
             Random tools
           </h2>
+
+          <div class="page-tabs">
+            <rm-tabs-container>
+              <rm-tab>Yes/No</rm-tab>
+              <rm-tab>Random Number</rm-tab>
+            </rm-tabs-container>
+          </div>
 
           <get-random-number-form></get-random-number-form>
         </div>

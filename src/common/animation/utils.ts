@@ -6,6 +6,7 @@ export function animate(renderFn: (time: number, frequency: number) => void, { d
     const frameFn = () => {
       const time = performance.now() - start;
       if (time >= duration) {
+        renderFn(duration, frequency);
         resolve();
       } else {
         renderFn(time, frequency);

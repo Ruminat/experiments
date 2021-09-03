@@ -2,7 +2,17 @@ import '../../../../components/rm-input';
 import '../../../../components/rm-button';
 import { css, html, LitElement, PropertyValues, TemplateResult } from 'lit';
 import { commonStyles } from '../../../../styles/common';
-import { cssBorder, cssBorderRadius, cssPadding, cssFlexFullAlign, cssFlexJustifyContent, size, cssCls, cls } from '../../../../styles/utils';
+import {
+  cssBorder,
+  cssBorderRadius,
+  cssPadding,
+  cssFlexFullAlign,
+  cssFlexJustifyContent,
+  size,
+  cssCls,
+  cls,
+  cssMedia,
+} from '../../../../styles/utils';
 import { palette } from '../../../../styles/palette';
 import { classNames, EFormFields, tagName } from './definitions';
 import { customElement, state } from 'lit/decorators';
@@ -69,7 +79,9 @@ export class GetRandomNumberForm extends LitElement {
         </rm-button>
       </div>
 
-      <div class="${classNames.RESULT}"></div>
+      <div class="${classNames.RESULT_WRAPPER}">
+        <div class="${classNames.RESULT}"></div>
+      </div>
     `;
   }
 
@@ -111,30 +123,39 @@ export class GetRandomNumberForm extends LitElement {
     $result.innerHTML = "";
     let duration: number;
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     for (const i of range(1, elementsCount)) {
-      const $element = addToElement($result, `div${cls(classNames.RESULT_VALUE)}`);
+      const $element = addToElement($result, `div.${classNames.RESULT_VALUE}`);
       $element.innerText = `${randomInt(from, to)}`;
       duration = minDuration + (maxDuration - minDuration) * (i / elementsCount);
-      await this.animateValue($element, { duration });
+      await this.animateValue($element, { duration, top: -$element.clientHeight, bottom: $result.clientHeight });
       $element.remove();
     }
 
-    const $element = addToElement($result, `div${cls(classNames.RESULT_VALUE)}`);
+    const $element = addToElement($result, `div.${classNames.RESULT_VALUE}`);
     const resultValue = randomInt(from, to);
     $element.innerText = `${resultValue}`;
-    await this.animateValue($element, { duration: 1.5 * maxDuration, bottom: 15 });
+    await this.animateValue($element, {
+      duration: maxDuration,
+      top: -$element.clientHeight,
+      bottom: 0.5 * $result.clientHeight - 0.5 * $element.clientHeight
+    });
 
     this.result = resultValue;
     this.isLoading = false;
   };
 
-  protected animateValue = async ($element: HTMLElement, { duration = 1000, top = -42, bottom = 72 } = {}): Promise<void> => {
+  protected animateValue = async (
+    $element: HTMLElement,
+    { duration, top, bottom }: { duration: number; top: number; bottom: number }
+  ): Promise<void> => {
     const distance = Math.abs(top - bottom);
-    await animate((time, frequency) => {
-      const newPosition = top + ((frequency * time) * distance);
-      $element.style.top = `${newPosition}px`;
-    }, { duration });
+    await animate(
+      (time, dt) => {
+        const newPosition = top + time * dt * distance;
+        $element.style.top = `${newPosition}px`;
+      },
+      { duration }
+    );
   };
 
   static styles = css`
@@ -162,6 +183,10 @@ export class GetRandomNumberForm extends LitElement {
       color: ${palette.gray80};
     }
 
+    ${cssCls(classNames.RESULT_WRAPPER)} {
+      ${cssFlexFullAlign()};
+    }
+
     ${cssCls(classNames.RESULT)} {
       position: relative;
       height: ${size(4)};
@@ -178,6 +203,12 @@ export class GetRandomNumberForm extends LitElement {
       position: absolute;
       top: -1000px;
     }
+
+    ${cssMedia((index, maxIndex) => css`
+      ${cssCls(classNames.RESULT)} {
+        width: calc(100% - ${index * 15}%);
+      }
+    `)}
   `;
 }
 

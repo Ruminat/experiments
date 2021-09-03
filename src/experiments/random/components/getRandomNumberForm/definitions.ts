@@ -7,5 +7,6 @@ export enum EFormFields {
 
 export enum classNames {
   RESULT = "result",
+  RESULT_WRAPPER = "result-wrapper",
   RESULT_VALUE = "result-value",
 }

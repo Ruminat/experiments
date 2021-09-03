@@ -1,6 +1,6 @@
 import { css } from "lit";
 import { palette } from "./palette";
-import { cssTransition, size } from "./utils";
+import { cssMedia, cssPadding, cssTransition, size } from "./utils";
 
 export const commonStyles = css`
   a {
@@ -28,13 +28,16 @@ export const commonStyles = css`
   }
 `;
 
+const pageMediaStyles = (index: number) => css`
+  .page-content {
+    ${cssPadding(2, `${5 * index}%`)};
+  }
+`;
+
 export const pageStyles = css`
   .page-content {
     padding: ${size(2)};
   }
 
-  @media (min-width: 420px) { .page-content { padding: ${size(2)} 5%; } }
-  @media (min-width: 600px) { .page-content { padding: ${size(2)} 10%; } }
-  @media (min-width: 720px) { .page-content { padding: ${size(2)} 15%; } }
-  @media (min-width: 1080px) { .page-content { padding: ${size(2)} 25%; } }
+  ${cssMedia(pageMediaStyles)}
 `;

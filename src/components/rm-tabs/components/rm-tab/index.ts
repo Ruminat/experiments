@@ -1,6 +1,7 @@
 import { css, html, LitElement, TemplateResult } from "lit";
 import { customElement } from "lit/decorators";
-import { cssBorder, cssBorderRadius, cssPadding } from "../../styles/utils";
+import { palette } from "../../../../styles/palette";
+import { cssBorder, cssPadding, cssTransition } from "../../../../styles/utils";
 import { tagName } from "./definitions";
 
 @customElement(tagName)
@@ -14,15 +15,16 @@ export class RmTab extends LitElement {
   }
 
   static styles = css`
-    .tab {
+    :host {
       ${cssPadding(1)};
-      ${cssBorder()};
-      ${cssBorderRadius()};
+      ${cssBorder("2px")};
+      ${cssTransition("border-color")};
       cursor: pointer;
     }
 
-    :host(.selected) .tab {
+    :host(.selected) {
       cursor: default;
+      border-bottom-color: ${palette.blue100};
     }
   `;
 }

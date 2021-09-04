@@ -19,7 +19,7 @@ import { customElement, state } from 'lit/decorators';
 import { integerValidator } from '../../../../common/forms/validators';
 import { isFormInvalid } from '../../../../common/forms/utils';
 import { fontSize } from '../../../../styles/text';
-import { randomInt } from '../../../../lib/random/utils';
+import { randomFrom } from '../../../../lib/random/utils';
 import { addToElement, queryExistingElement } from '../../../../lib/lit/utils';
 import { range } from '../../../../lib/generators/utils';
 import { isEnterOnly } from '../../../../common/keyboard/utils';
@@ -49,32 +49,12 @@ export class GetRandomNumberForm extends LitElement {
     return html`
       <div class="range-block">
         <div class="form-block">
-          <div class="label">From</div>
-          <rm-input
-            .value=${this.formValues[EFormFields.FROM]}
-            .name=${EFormFields.FROM}
-            .onInput=${this.inputValueChanged}
-            .validators=${this.validators}
-            .onKeyUp=${this.inputKeyUp}
-            .onValidationChange=${this.validationChanged}
-          ></rm-input>
-        </div>
-        <div class="form-block">
-          <div class="label">To</div>
-          <rm-input
-            .value=${this.formValues[EFormFields.TO]}
-            .name=${EFormFields.TO}
-            .onInput=${this.inputValueChanged}
-            .validators=${this.validators}
-            .onKeyUp=${this.inputKeyUp}
-            .onValidationChange=${this.validationChanged}
-          ></rm-input>
         </div>
       </div>
 
       <div class="submit-block">
         <rm-button .disabled=${this.isFormInvalid} ?isLoading=${this.isLoading} @click=${this.rollTheNumbers}>
-          Generate!
+          Yes or No?
         </rm-button>
       </div>
 
@@ -111,27 +91,24 @@ export class GetRandomNumberForm extends LitElement {
   protected rollTheNumbers = async (): Promise<void> => {
     this.isLoading = true;
 
-    const from = Number(this.formValues[EFormFields.FROM]);
-    const to = Number(this.formValues[EFormFields.TO]);
     const elementsCount = 10;
     const minDuration = 10;
     const maxDuration = 150;
 
     const $result = queryExistingElement(this, cls(classNames.RESULT));
     $result.innerHTML = "";
+    const $element = addToElement($result, `div.${classNames.RESULT_VALUE}`);
     let duration: number;
 
     for (const i of range(1, elementsCount)) {
-      const $element = addToElement($result, `div.${classNames.RESULT_VALUE}`);
-      $element.innerText = `${randomInt(from, to)}`;
+      $element.innerText = randomFrom(["Yes", "No"]);
       duration = minDuration + (maxDuration - minDuration) * (i / elementsCount);
       await this.animateValue($element, { duration, top: -$element.clientHeight, bottom: $result.clientHeight });
-      $element.remove();
+      // $element.remove();
     }
 
-    const $element = addToElement($result, `div.${classNames.RESULT_VALUE}`);
-    const resultValue = randomInt(from, to);
-    $element.innerText = `${resultValue}`;
+    // const $element = addToElement($result, `div.${classNames.RESULT_VALUE}`);
+    $element.innerText = randomFrom(["Yes", "No"]);
     await this.animateValue($element, {
       duration: maxDuration,
       top: -$element.clientHeight,
@@ -148,7 +125,7 @@ export class GetRandomNumberForm extends LitElement {
     const distance = Math.abs(top - bottom);
     await animate(
       (time, dt) => {
-        const newPosition = top + time * dt * distance;
+        const newPosition = top + (time * dt * distance);
         $element.style.top = `${newPosition}px`;
       },
       { duration }
@@ -186,7 +163,6 @@ export class GetRandomNumberForm extends LitElement {
 
     ${cssCls(classNames.RESULT)} {
       position: relative;
-      width: 100%;
       height: ${size(4)};
       margin-top: ${size(2)};
       overflow: hidden;
@@ -204,7 +180,7 @@ export class GetRandomNumberForm extends LitElement {
 
     ${cssMedia((index) => css`
       ${cssCls(classNames.RESULT)} {
-        width: ${100 - index * 15}%;
+        width: calc(100% - ${index * 15}%);
       }
     `)}
   `;

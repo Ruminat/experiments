@@ -37,7 +37,7 @@ export const cssPadding = (top?: TCSSSize, right?: TCSSSize, bottom?: TCSSSize, 
 export const cssBorder = (width = "1px", color = palette.gray10, type = "solid") =>
   unsafeCSS(`border: ${width} ${type} ${color}`);
 export const cssBorderRadius = (width: TCSSSize = size(3 / 5)) => unsafeCSS(`border-radius: ${cssSize(width)}`);
-export const cssTransition = (type = "background", time = "80ms") => unsafeCSS(`transition: ${type} ${time}`);
+export const cssTransition = (type = "background", time = "100ms") => unsafeCSS(`transition: ${type} ${time}`);
 
 export const cssFlexAlignItems = (flex = "flex", align = "center") => unsafeCSS(`
   display: ${flex};

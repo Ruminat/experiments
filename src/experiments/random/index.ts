@@ -5,6 +5,7 @@ import "./components/getRandomNumberForm";
 import "../../components/pages-navigation-menu";
 import "../../components/rm-tabs";
 import { LitElement, html, css, TemplateResult } from 'lit';
+import { cache } from 'lit/directives/cache';
 import { customElement, property } from 'lit/decorators.js';
 import { commonStyles, pageStyles } from '../../styles/common';
 import { EPageRandomTabs, pageRandomTabs, tagName } from "./definitions";
@@ -35,7 +36,7 @@ export class PageExperimentRandom extends LitElement {
             ></rm-tabs>
           </div>
 
-          ${this.renderTabContent()}
+          ${cache(this.renderTabContent())}
         </div>
       </div>
     `;

@@ -163,6 +163,7 @@ export class GetRandomNumberForm extends LitElement {
 
     ${cssCls(classNames.RESULT)} {
       position: relative;
+      width: 100%;
       height: ${size(4)};
       margin-top: ${size(2)};
       overflow: hidden;
@@ -180,7 +181,7 @@ export class GetRandomNumberForm extends LitElement {
 
     ${cssMedia((index) => css`
       ${cssCls(classNames.RESULT)} {
-        width: calc(100% - ${index * 15}%);
+        width: ${100 - index * 15}%;
       }
     `)}
   `;

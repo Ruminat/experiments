@@ -119,17 +119,15 @@ export class GetRandomNumberForm extends LitElement {
 
     const $result = queryExistingElement(this, cls(classNames.RESULT));
     $result.innerHTML = "";
+    const $element = addToElement($result, `div.${classNames.RESULT_VALUE}`);
     let duration: number;
 
     for (const i of range(1, elementsCount)) {
-      const $element = addToElement($result, `div.${classNames.RESULT_VALUE}`);
       $element.innerText = `${randomInt(from, to)}`;
       duration = minDuration + (maxDuration - minDuration) * (i / elementsCount);
       await this.animateValue($element, { duration, top: -$element.clientHeight, bottom: $result.clientHeight });
-      $element.remove();
     }
 
-    const $element = addToElement($result, `div.${classNames.RESULT_VALUE}`);
     const resultValue = randomInt(from, to);
     $element.innerText = `${resultValue}`;
     await this.animateValue($element, {

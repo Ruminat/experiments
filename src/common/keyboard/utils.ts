@@ -4,6 +4,10 @@ export function isEnterOnly(event: KeyboardEvent): boolean {
   return event.code === EKeyboardKeyCodes.ENTER && withoutControlKeys(event);
 }
 
+export function isCtrlEnter(event: KeyboardEvent): boolean {
+  return event.code === EKeyboardKeyCodes.ENTER && withControlKeys(event, [EControlKey.CTRL]);
+}
+
 export function withoutControlKeys(event: KeyboardEvent): boolean {
   return withControlKeys(event, []);
 }

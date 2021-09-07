@@ -37,6 +37,8 @@ export class RmTabs extends LitElement {
   static styles = css`
     .tabs {
       ${cssFlexFullAlign()};
+      max-width: 100%;
+      overflow-x: auto;
     }
 
     rm-tab {

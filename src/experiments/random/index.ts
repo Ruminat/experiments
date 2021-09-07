@@ -1,4 +1,5 @@
 
+import "./components/getRandomFromForm";
 import "./components/getYesOrNoForm";
 import "../../components/rm-tabs/components/rm-tab";
 import "./components/getRandomNumberForm";
@@ -50,6 +51,8 @@ export class PageExperimentRandom extends LitElement {
     switch (this.selectedTabName) {
       case (EPageRandomTabs.YES_NO):
         return html`<get-yes-or-no-form></get-yes-or-no-form>`;
+      case (EPageRandomTabs.RANDOM_FROM):
+        return html`<get-random-from-form></get-random-from-form>`;
       case (EPageRandomTabs.RANDOM_NUMBER):
         return html`<get-random-number-form></get-random-number-form>`;
     }

@@ -1,4 +1,5 @@
-import '../../../../components/rm-input';
+
+import "../../../../components/rm-textarea";
 import '../../../../components/rm-button';
 import { css, html, LitElement, PropertyValues, TemplateResult } from 'lit';
 import { commonStyles } from '../../../../styles/common';
@@ -16,29 +17,27 @@ import {
 import { palette } from '../../../../styles/palette';
 import { classNames, EFormFields, tagName } from './definitions';
 import { customElement, state } from 'lit/decorators';
-import { integerValidator } from '../../../../common/forms/validators';
+import { requiredValidator } from '../../../../common/forms/validators';
 import { isFormInvalid } from '../../../../common/forms/utils';
 import { fontSize } from '../../../../styles/text';
-import { randomFrom } from '../../../../lib/random/utils';
+import { randomFrom, randomInt } from '../../../../lib/random/utils';
 import { addToElement, queryExistingElement } from '../../../../lib/lit/utils';
 import { range } from '../../../../lib/generators/utils';
-import { isEnterOnly } from '../../../../common/keyboard/utils';
+import { isCtrlEnter, isEnterOnly } from '../../../../common/keyboard/utils';
 import { animate } from '../../../../common/animation/utils';
 
 @customElement(tagName)
-export class GetRandomNumberForm extends LitElement {
+export class GetRandomFromForm extends LitElement {
   @state() protected isLoading = false;
   @state() protected isFormInvalid = true;
 
   protected formValues = {
-    [EFormFields.FROM]: "1",
-    [EFormFields.TO]: "10",
+    [EFormFields.VALUES]: "Fool, King, Babe, Coco",
   };
   protected formValidation = {
-    [EFormFields.FROM]: true,
-    [EFormFields.TO]: true,
+    [EFormFields.VALUES]: true,
   };
-  protected validators = [integerValidator];
+  protected validators = [requiredValidator];
 
   firstUpdated(changedProperties: PropertyValues) {
     super.firstUpdated(changedProperties);
@@ -49,12 +48,22 @@ export class GetRandomNumberForm extends LitElement {
     return html`
       <div class="range-block">
         <div class="form-block">
+          <div class="label">The fools</div>
+          <rm-textarea
+            .value=${this.formValues[EFormFields.VALUES]}
+            .name=${EFormFields.VALUES}
+            .onInput=${this.inputValueChanged}
+            .validators=${this.validators}
+            .onKeyUp=${this.inputKeyUp}
+            .onValidationChange=${this.validationChanged}
+            .placeholder=${"The idiots (e.g. «Fool, King, Babe, Coco»)"}
+          ></rm-textarea>
         </div>
       </div>
 
       <div class="submit-block">
         <rm-button .disabled=${this.isFormInvalid} ?isLoading=${this.isLoading} @click=${this.rollTheNumbers}>
-          Get the answer!
+          Generate!
         </rm-button>
       </div>
 
@@ -65,11 +74,12 @@ export class GetRandomNumberForm extends LitElement {
   }
 
   protected inputValueChanged = (field: EFormFields, value: string): void => {
+    console.log("N?", field, value);
     this.formValues[field] = value;
   };
 
   protected inputKeyUp = (field: EFormFields, event: KeyboardEvent): void => {
-    if (isEnterOnly(event) && [EFormFields.FROM, EFormFields.TO].includes(field)) {
+    if (isCtrlEnter(event) && [EFormFields.VALUES].includes(field)) {
       if (!this.isFormInvalid && !this.isLoading) {
         this.rollTheNumbers();
       }
@@ -91,6 +101,7 @@ export class GetRandomNumberForm extends LitElement {
   protected rollTheNumbers = async (): Promise<void> => {
     this.isLoading = true;
 
+    const values = this.formValues[EFormFields.VALUES].split(",").map((value) => value.trim());
     const elementsCount = 10;
     const minDuration = 10;
     const maxDuration = 150;
@@ -101,12 +112,13 @@ export class GetRandomNumberForm extends LitElement {
     let duration: number;
 
     for (const i of range(1, elementsCount)) {
-      $element.innerText = randomFrom(["Yes", "No"]);
+      $element.innerText = `${randomFrom(values)}`;
       duration = minDuration + (maxDuration - minDuration) * (i / elementsCount);
       await this.animateValue($element, { duration, top: -$element.clientHeight, bottom: $result.clientHeight });
     }
 
-    $element.innerText = randomFrom(["Yes", "No"]);
+    const resultValue = randomFrom(values);
+    $element.innerText = `${resultValue}`;
     await this.animateValue($element, {
       duration: maxDuration,
       top: -$element.clientHeight,
@@ -123,7 +135,7 @@ export class GetRandomNumberForm extends LitElement {
     const distance = Math.abs(top - bottom);
     await animate(
       (time, dt) => {
-        const newPosition = top + (time * dt * distance);
+        const newPosition = top + time * dt * distance;
         $element.style.top = `${newPosition}px`;
       },
       { duration }
@@ -135,6 +147,14 @@ export class GetRandomNumberForm extends LitElement {
 
     h3 {
       text-align: center;
+    }
+
+    .form-block {
+      width: 100%;
+    }
+
+    rm-textarea {
+      width: 100%;
     }
 
     .range-block,
@@ -178,6 +198,10 @@ export class GetRandomNumberForm extends LitElement {
     }
 
     ${cssMedia((index) => css`
+      .form-block {
+        width: ${100 - index * 10}%;
+      }
+
       ${cssCls(classNames.RESULT)} {
         width: ${100 - index * 15}%;
       }
@@ -187,6 +211,6 @@ export class GetRandomNumberForm extends LitElement {
 
 declare global {
   interface HTMLElementTagNameMap {
-    [tagName]: GetRandomNumberForm;
+    [tagName]: GetRandomFromForm;
   }
 }

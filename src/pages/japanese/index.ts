@@ -3,7 +3,7 @@ import "../../components/rm-textarea";
 import "../../components/pages-navigation-menu";
 import { LitElement, html, css } from 'lit';
 import { customElement } from 'lit/decorators.js';
-import { commonStyles, pageStyles } from './../../styles/common';
+import { commonStyles, pageStyles } from '../../styles/common';
 import { tagName } from "./definitions";
 import { cssFlexFullAlign, size, cssSquare } from "../../styles/utils";
 import { palette } from "../../styles/palette";

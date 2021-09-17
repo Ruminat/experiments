@@ -20,10 +20,10 @@ import { customElement, state } from 'lit/decorators';
 import { requiredValidator } from '../../../../common/forms/validators';
 import { isFormInvalid } from '../../../../common/forms/utils';
 import { fontSize } from '../../../../styles/text';
-import { randomFrom, randomInt } from '../../../../lib/random/utils';
+import { randomFrom } from '../../../../lib/random/utils';
 import { addToElement, queryExistingElement } from '../../../../lib/lit/utils';
 import { range } from '../../../../lib/generators/utils';
-import { isCtrlEnter, isEnterOnly } from '../../../../common/keyboard/utils';
+import { isCtrlEnter } from '../../../../common/keyboard/utils';
 import { animate } from '../../../../common/animation/utils';
 
 @customElement(tagName)

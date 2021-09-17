@@ -9,10 +9,10 @@ import { tagName } from "./definitions";
 import { ENavigationPages } from "../../components/pages-navigation-menu/definitions";
 import { svgCalqExperiment, svgJapaneseExperiment, svgRandomExperiment } from "../../components/rm-icon/icons";
 import { size, cssSquare } from "../../styles/utils";
-import { getPageJapaneseUrl } from "../../experiments/japanese/route";
-import { getPageCalqUrl } from "../../experiments/calq/route";
+import { getPageJapaneseUrl } from "../japanese/route";
+import { getPageCalqUrl } from "../calq/route";
 import { externalUrls } from "../../common/urls/definitions";
-import { getPageRandomUrl } from "../../experiments/random/route";
+import { getPageRandomUrl } from "../random/route";
 
 @customElement(tagName)
 export class PageHome extends LitElement {

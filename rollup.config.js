@@ -23,6 +23,7 @@ export default {
   // },
   output: {
     dir: 'dist',
+    file: 'bundle.js',
     format: 'esm',
   },
   onwarn(warning) {

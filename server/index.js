@@ -5,12 +5,16 @@ const app = express();
 const currentDir = path.resolve();
 const port = 3000;
 
-app.set('view engine', 'ejs');
-app.set('views', path.join(currentDir, '/server/templates'));
+app.use(express.static("/assets"));
+app.use(express.static("/dist"));
+express.static.mime.define({ "text/html": ["html", "css"] });
 
-app.get('/', (req, res) => {
+app.set("view engine", "ejs");
+app.set("views", path.join(currentDir, "/server/templates"));
+
+app.get("/", (req, res) => {
   res.render("index.ejs", { title: "Web Experiments", basePath: ".", pageName: "page-home" });
-  // res.send('Hello World!');
+  // res.send("Hello World!");
 })
 
 app.listen(port, () => {

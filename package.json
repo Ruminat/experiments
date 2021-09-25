@@ -9,6 +9,7 @@
   "scripts": {
     "build": "tsc",
     "dev": "tsc --watch",
+    "start": "node server",
     "clean": "rimraf my-element.{d.ts,d.ts.map,js,js.map} test/my-element.{d.ts,d.ts.map,js,js.map} test/my-element_test.{d.ts,d.ts.map,js,js.map}",
     "lint": "npm run lint:lit-analyzer && npm run lint:eslint",
     "lint:eslint": "eslint 'src/**/*.ts'",
@@ -52,6 +53,7 @@
     "@rollup/plugin-commonjs": "^20.0.0",
     "@rollup/plugin-node-resolve": "^13.0.4",
     "@rollup/plugin-replace": "^2.3.3",
+    "@rollup/plugin-typescript": "^8.2.5",
     "@types/mocha": "^7.0.2",
     "@typescript-eslint/eslint-plugin": "^2.27.0",
     "@typescript-eslint/parser": "^2.27.0",
@@ -67,6 +69,7 @@
     "eslint": "^6.8.0",
     "lit-analyzer": "^1.1.10",
     "mocha": "^7.1.1",
+    "postcss": "^8.3.6",
     "prettier": "^2.0.4",
     "rimraf": "^3.0.2",
     "rollup": "^2.28.2",

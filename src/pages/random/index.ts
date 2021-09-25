@@ -58,7 +58,7 @@ export class PageExperimentRandom extends LitElement {
     }
   };
 
-  static styles = css`
+  static styles = css/* language=css */ `
     ${commonStyles}
     ${pageStyles}
 

@@ -5,6 +5,7 @@
  */
 
 import path from 'path';
+import typescript from '@rollup/plugin-typescript';
 import postcss from 'rollup-plugin-postcss';
 import commonjs from '@rollup/plugin-commonjs';
 import monaco from 'rollup-plugin-monaco-editor';
@@ -16,14 +17,13 @@ import resolve from '@rollup/plugin-node-resolve';
 import replace from '@rollup/plugin-replace';
 
 export default {
-  input: path.resolve(__dirname, './index.html'),
+  input: path.resolve(__dirname, './src/pages/home.ts'),
   // output: {
   //   file: 'my-element.bundled.js',
   //   format: 'esm',
   // },
   output: {
-    dir: 'dist',
-    file: 'bundle.js',
+    file: 'dist/bundle.js',
     format: 'esm',
   },
   onwarn(warning) {
@@ -56,11 +56,12 @@ export default {
         },
       },
     }),
+    typescript(),
     postcss(),
     monaco({
       // languages: ['json'],
     }),
-    // nodeResolve(),
+    nodeResolve(),
     commonjs(),
     summary(),
   ],

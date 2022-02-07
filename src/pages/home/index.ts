@@ -95,3 +95,5 @@ declare global {
     [tagName]: PageHome;
   }
 }
+
+document.body.appendChild(document.createElement(tagName));

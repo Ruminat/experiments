@@ -1,7 +1,7 @@
 
 import "../rm-icon";
 import { LitElement, css, html, TemplateResult } from "lit";
-import { customElement, property } from "lit/decorators";
+import { customElement, property } from "lit/decorators.js";
 import { commonStyles } from "../../styles/common";
 import { palette } from "../../styles/palette";
 import { cssTransition, cssFlexAlignItems, cssFlexFullAlign, size, cssPadding } from "../../styles/utils";

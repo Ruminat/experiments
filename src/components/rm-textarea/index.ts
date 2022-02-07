@@ -1,5 +1,5 @@
 import { LitElement, css, html, TemplateResult } from "lit";
-import { customElement, property, state } from "lit/decorators";
+import { customElement, property, state } from "lit/decorators.js";
 import { TFormValidator } from "../../common/forms/definitions";
 import { hasValidationError } from "../../common/forms/utils";
 import { noop } from "../../lib/functions/utils";

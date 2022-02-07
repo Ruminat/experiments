@@ -1,7 +1,7 @@
 {
   "name": "experiments",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "My web-experiments",
   "main": "my-element.js",
   "module": "my-element.js",

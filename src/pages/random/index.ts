@@ -82,3 +82,5 @@ declare global {
     [tagName]: PageExperimentRandom;
   }
 }
+
+document.body.appendChild(document.createElement(tagName));

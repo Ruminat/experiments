@@ -51,3 +51,5 @@ declare global {
     [tagName]: PageExperimentCalq;
   }
 }
+
+document.body.appendChild(document.createElement(tagName));

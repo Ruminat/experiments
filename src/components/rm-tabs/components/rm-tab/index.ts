@@ -1,5 +1,5 @@
 import { css, html, LitElement, TemplateResult } from "lit";
-import { customElement } from "lit/decorators";
+import { customElement } from "lit/decorators.js";
 import { palette } from "../../../../styles/palette";
 import { cssBorder, cssPadding } from "../../../../styles/utils";
 import { tagName } from "./definitions";

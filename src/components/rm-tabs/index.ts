@@ -1,6 +1,6 @@
 
 import "./components/rm-tab";import { css, html, LitElement, TemplateResult } from "lit";
-import { customElement, property } from "lit/decorators";
+import { customElement, property } from "lit/decorators.js";
 import { cssFlexFullAlign, size } from "../../styles/utils";
 import { tagName, TRmTab } from "./definitions";
 import { noop } from "../../lib/functions/utils";

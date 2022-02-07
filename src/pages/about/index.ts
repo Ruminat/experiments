@@ -111,3 +111,5 @@ declare global {
     [tagName]: PageAbout;
   }
 }
+
+document.body.appendChild(document.createElement(tagName));

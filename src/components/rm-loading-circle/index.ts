@@ -1,6 +1,6 @@
 
 import "../rm-icon";import { css, html, LitElement, TemplateResult } from "lit";
-import { customElement, property } from "lit/decorators";
+import { customElement, property } from "lit/decorators.js";
 import { palette } from "../../styles/palette";
 import { cssFlexFullAlign, cssSquare } from "../../styles/utils";
 import { tagName } from "./definitions";

@@ -1,6 +1,6 @@
-const { r, g, b } = hexToRgb('#ffc15e')
+const { r, g, b } = hexToRgb('#09bc8a')
 
-const color = `yellow`
+const color = `green`
 
 console.log(`
   ${color}90: css\`#${getShit(r, 90)}${getShit(g, 90)}${getShit(b, 90)}\`,

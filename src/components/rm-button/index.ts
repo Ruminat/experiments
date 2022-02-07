@@ -1,6 +1,6 @@
 
 import "../rm-loading-circle";import { LitElement, css, html, TemplateResult } from "lit";
-import { customElement, property } from "lit/decorators";
+import { customElement, property } from "lit/decorators.js";
 import { palette } from "../../styles/palette";
 import { cssBorder, cssBorderRadius, cssClass, cssSquare, cssTransition, size } from "../../styles/utils";
 import { tagName } from "./definitions";

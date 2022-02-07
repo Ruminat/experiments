@@ -1,5 +1,5 @@
 import { LitElement, css, html, TemplateResult } from "lit";
-import { customElement, property, state } from "lit/decorators";
+import { customElement, property, state } from "lit/decorators.js";
 import { TFormValidator } from "../../common/forms/definitions";
 import { hasValidationError } from "../../common/forms/utils";
 import { noop } from "../../lib/functions/utils";
@@ -48,7 +48,7 @@ export class RmInput extends LitElement {
         @change=${this.handleChange}
         @keyup=${this.handleOnKeyUp}
       >
-      <div class="error-message">${this.errorMessage}</div>
+      ${this.errorMessage ? html`<div class="error-message">${this.errorMessage}</div>` : null}
     `;
   }
 
@@ -98,7 +98,7 @@ export class RmInput extends LitElement {
       display: block;
       box-sizing: border-box;
       width: 100%;
-      ${cssPadding(0.5, 1)};
+      ${cssPadding(0.8, 1)};
       ${cssBorder("2px", palette.gray10)};
       ${cssBorderRadius()};
       outline: none;

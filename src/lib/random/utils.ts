@@ -8,7 +8,6 @@ export function randomInt(from = 0, to = 1) {
 
 export function randomFrom<T>(elements: T[]): T {
   const index = randomInt(0, elements.length - 1);
-  // console.log("N?", index);
   return elements[index];
 }
 

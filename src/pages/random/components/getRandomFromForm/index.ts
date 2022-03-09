@@ -74,7 +74,6 @@ export class GetRandomFromForm extends LitElement {
   }
 
   protected inputValueChanged = (field: EFormFields, value: string): void => {
-    console.log("N?", field, value);
     this.formValues[field] = value;
   };
 

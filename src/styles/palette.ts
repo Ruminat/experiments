@@ -1,5 +1,14 @@
 import { css } from "lit";
 
+export const colors = {
+  skeleton: {
+    background: css`#eee`,
+    gradiend1: css`#ececec`,
+    gradiend2: css`#f5f5f5`,
+    gradiend3: css`#ececec`,
+  },
+};
+
 export const palette = {
   gray100: css`#222222`,
   gray90: css`#383838`,

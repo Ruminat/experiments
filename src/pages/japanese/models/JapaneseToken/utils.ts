@@ -33,5 +33,7 @@ export function japanesePartOfSpeechToColor(partOfSpeech: EJapaneseTokenPartOfSp
       return palette.green01;
     case EJapaneseTokenPartOfSpeech.PARTICLE:
       return palette.yellow10;
+    default:
+      return palette.gray01;
   }
 }

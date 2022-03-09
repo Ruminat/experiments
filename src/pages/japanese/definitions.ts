@@ -4,18 +4,9 @@ import { EMeCabTypeOfSpeech } from "./models/MeCab/definitions";
 
 export const tagName = "experiments-japanese";
 
-[
-  { content: "知識" },
-  { content: "豊富" },
-  { content: "な" },
-  { content: "人" },
-  { content: "は" },
-  { content: "実" },
-  { content: "は" },
-  { content: "馬鹿" },
-  { content: "で" },
-  { content: "ある" },
-]
+export enum EJapaneseFormFields {
+  INPUT = "input",
+}
 
 export const firstSentence: TJapaneseToken[] = [
   { content: "知識", partOfSpeech: meCabPartOfSpeechToJapaneseOne(EMeCabTypeOfSpeech.NOUN) },

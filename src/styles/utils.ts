@@ -22,6 +22,18 @@ export const cssMedia = (cssFn: (index: number, maxIndex: number, mediaSize: TCS
   }, unsafeCSS(``));
 };
 
+export function cssSizes(top?: TCSSSize, right?: TCSSSize, bottom?: TCSSSize, left?: TCSSSize): CSSResult {
+  if (top !== undefined && right === undefined && bottom === undefined && left === undefined) {
+    return unsafeCSS(`${cssSize(top)}`);
+  } else if (top !== undefined && right !== undefined && bottom === undefined && left === undefined) {
+    return unsafeCSS(`${cssSize(top)} ${cssSize(right)}`);
+  } else if (top !== undefined && right !== undefined && bottom !== undefined && left !== undefined) {
+    return unsafeCSS(`${cssSize(top)} ${cssSize(right)} ${cssSize(bottom)} ${cssSize(left)}`);
+  } else {
+    throw new Error(`BITCH, WHAT DO YOU WANT? cssSizes(${top}, ${right}, ${bottom}, ${left})`);
+  }
+}
+
 export const cssPadding = (top?: TCSSSize, right?: TCSSSize, bottom?: TCSSSize, left?: TCSSSize) => {
   if (top !== undefined && right === undefined && bottom === undefined && left === undefined) {
     return unsafeCSS(`padding: ${cssSize(top)}`);
@@ -36,7 +48,7 @@ export const cssPadding = (top?: TCSSSize, right?: TCSSSize, bottom?: TCSSSize, 
 
 export const cssBorder = (width = "1px", color = palette.gray10, type = "solid") =>
   unsafeCSS(`border: ${width} ${type} ${color}`);
-export const cssBorderRadius = (width: TCSSSize = size(3 / 5)) => unsafeCSS(`border-radius: ${cssSize(width)}`);
+export const cssBorderRadius = (width: TCSSSize = size(1 / 2)) => unsafeCSS(`border-radius: ${cssSize(width)}`);
 export const cssTransition = (type = "background", time = "100ms") => unsafeCSS(`transition: ${type} ${time}`);
 
 export const cssFlexAlignItems = (flex = "flex", align = "center") => unsafeCSS(`

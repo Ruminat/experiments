@@ -1,20 +1,27 @@
 
-import "../../components/rm-button";
-import "../../components/rm-input";
-import "../../components/pages-navigation-menu";
-import { LitElement, html, css, TemplateResult } from 'lit';
+import { css, html, LitElement, TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
-import { commonStyles, pageStyles } from '../../styles/common';
-import { firstSentence, secondSentence, tagName } from "./definitions";
-import { cssFlexFullAlign, size, cssSquare } from "../../styles/utils";
-import { palette } from "../../styles/palette";
+import "../../components/pages-navigation-menu";
+import "../../components/rm-button";
+import "../../components/rm-empty-state";
+import "./components/ProcessedJapaneseText";
+import "../../components/rm-input";
+import { isEnterOnly } from '../../common/keyboard/utils';
 import { svgJapaneseExperiment } from "../../components/rm-icon/icons";
-import { getTranslationUrl } from "./models/Translation/utils";
-import { TJapaneseToken } from "./models/JapaneseToken/definitions";
-import { japanesePartOfSpeechToColor } from "./models/JapaneseToken/utils";
+import { commonStyles, pageStyles } from '../../styles/common';
+import { palette } from '../../styles/palette';
+import { cssFlexFullAlign, cssSquare, size } from "../../styles/utils";
+import { SimplificationController } from './controllers/Simplification';
+import { EJapaneseFormFields, tagName } from "./definitions";
 
 @customElement(tagName)
 export class PageExperimentJapanese extends LitElement {
+  private formValues = {
+    [EJapaneseFormFields.INPUT]: "",
+  };
+
+  private simplification = new SimplificationController(this);
+
   protected render() {
     return html`
       <div class="page">
@@ -26,7 +33,10 @@ export class PageExperimentJapanese extends LitElement {
             Japanese Language Tools
           </h2>
           ${this.renderInput()}
-          ${this.renderProcessesJapaneseText()}
+
+          <div class="delimiter"></div>
+
+          ${this.renderContent()}
         </div>
       </div>
     `;
@@ -34,55 +44,59 @@ export class PageExperimentJapanese extends LitElement {
 
   private renderInput = (): TemplateResult => {
     return html`
-      <div class="input-label">
-        Type the Japanese text you want to simplify and press <kbd>Enter</kbd>
-        (e.g. 知識豊富な人は実は馬鹿である)
-      </div>
       <div class="input-bar">
-        <rm-input class="japanese-input" .placeholder="${"Put you Japanese text here"}"></rm-input>
-        <rm-button>Simplify</rm-button>
+        <rm-input
+          class="japanese-input"
+          .placeholder="${"Put you Japanese text here"}"
+          .name=${EJapaneseFormFields.INPUT}
+          .onInput=${this.inputValueChanged}
+          .value=${this.formValues[EJapaneseFormFields.INPUT]}
+          @keyup=${this.onKeyUp}
+        ></rm-input>
+
+        <rm-button
+          @click=${this.submit}
+          .isLoading=${this.simplification.isLoading}
+        >
+          Simplify
+        </rm-button>
       </div>
     `;
   };
 
-  private renderProcessesJapaneseText = (): TemplateResult => {
-    const tokens = firstSentence;
-    const simplifiedTokens = secondSentence;
+  private inputValueChanged = (field: EJapaneseFormFields, value: string): void => {
+    this.formValues[field] = value;
+  };
 
+  private onKeyUp = (event: KeyboardEvent): void => {
+    if (isEnterOnly(event)) {
+      this.submit();
+    }
+  };
+
+  private submit = (): void => {
+    const sentence = this.formValues[EJapaneseFormFields.INPUT];
+    this.simplification.simplify(sentence);
+  };
+
+  private renderContent = (): TemplateResult => {
+    if (!this.simplification.isLoading && !this.simplification.result) return this.renderEmptyState();
     return html`
-      <div class="delimiter"></div>
-      <div class="processed-info">
-        <div class="processed-info-wrapper">
-          <div class="processed-title">Your text</div>
-          ${this.renderTranslationLink(tokens.join(""))}
-          ${this.renderTokens(tokens)}
-
-          <div class="processed-title">Simplified version</div>
-          ${this.renderTranslationLink(simplifiedTokens.join(""))}
-          ${this.renderTokens(simplifiedTokens)}
-        </div>
-      </div>
+      <processed-japanese-text
+        .processedData=${this.simplification.result}
+        .isLoading=${this.simplification.isLoading}
+      ></processed-japanese-text>
     `;
   };
 
-  private renderTranslationLink = (sentence: string): TemplateResult => {
+  private renderEmptyState = (): TemplateResult => {
     return html`
-      <div class="translation-block">
-        <a class="translation-link" href="${getTranslationUrl(sentence)}" target="_blank">translation</a>
-      </div>
+      <rm-empty-state>
+        <div>Type the Japanese text you want to simplify in the input above and press <kbd>Enter</kbd></div>
+        <div>(e.g. 知識豊富な人は実は馬鹿である)</div>
+      </rm-empty-state>
     `;
   };
-
-  private renderTokens = (tokens: TJapaneseToken[]): TemplateResult => {
-    return html`<div class="tokens">${tokens.map((token) => this.renderToken(token))}</div>`;
-  };
-
-  protected renderToken = (token: TJapaneseToken): TemplateResult => {
-    const color = japanesePartOfSpeechToColor(token.partOfSpeech);
-    const backgroundStyle = color ? `background: ${color};` : "";
-    return html`<span class="token" style="${backgroundStyle}">${token.content}</span>`;
-  };
-
 
   static styles = css`
     ${commonStyles}
@@ -112,37 +126,10 @@ export class PageExperimentJapanese extends LitElement {
       margin-right: ${size(1 / 2)};
     }
 
-    /* processed shit */
-
     .delimiter {
       margin-top: ${size(4)};
       margin-bottom: ${size(2)};
       border-top: 1px solid ${palette.gray10};
-    }
-
-    .processed-info {
-      ${cssFlexFullAlign()};
-    }
-
-    .processed-title {
-      margin-top: ${size(2)};
-      margin-bottom: ${size(0.5)};
-    }
-
-    .translation-block {
-      margin-bottom: ${size(1)};
-    }
-
-    .tokens {
-      display: flex;
-      flex-wrap: wrap;
-      gap: ${size(1)} ${size(1 / 4)};
-    }
-    .token {
-      border-radius: ${size(1 / 2)};
-      padding: 0 ${size(1 / 2)};
-      border: 1px solid ${palette.gray10};
-      background: ${palette.gray01};
     }
   `;
 }

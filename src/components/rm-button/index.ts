@@ -1,5 +1,5 @@
 
-import "../rm-loading-circle";import { LitElement, css, html, TemplateResult } from "lit";
+import "../rm-loading-element";import { LitElement, css, html, TemplateResult } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { palette } from "../../styles/palette";
 import { cssBorder, cssBorderRadius, cssClass, cssSquare, cssTransition, size } from "../../styles/utils";
@@ -20,14 +20,17 @@ export class RmButton extends LitElement {
   render(): TemplateResult {
     const loading = this.isLoading
       ? html`
-          <div class="loading">
-            <rm-loading-circle></rm-loading-circle>
+          <div class="loader">
+            <rm-loading-element .size=${2}></rm-loading-element>
           </div>
         `
       : null;
 
     return html`
-      <button class="rm-button ${this.theme}" ?disabled=${this.disabled || this.isLoading}>
+      <button
+        class="rm-button ${this.theme} ${this.isLoading ? "button-loading" : ""}"
+        ?disabled=${this.disabled || this.isLoading}
+      >
         <span class="slot-content">
           <slot></slot>
         </span>
@@ -72,17 +75,13 @@ export class RmButton extends LitElement {
     button.rm-button.${rmButtonThemes.success.css}:active { background: ${palette.green80}; }
     button.rm-button.${rmButtonThemes.success.css}:disabled { background: ${palette.green50}; }
 
-    rm-loading-circle {
-      ${cssSquare(2)};
-    }
-
-    .loading {
+    .loader {
       position: absolute;
       top: calc(50% - ${size(1)});
       left: calc(50% - ${size(1)});
     }
 
-    :host([isLoading]) .slot-content {
+    .button-loading .slot-content {
       opacity: 0 !important;
     }
   `;

@@ -1,6 +1,13 @@
+import { EMeCabTypeOfSpeech } from "../MeCab/definitions";
+
 export type TJapaneseToken = {
   content: string;
   partOfSpeech?: EJapaneseTokenPartOfSpeech;
+}
+
+export type DJapaneseToken = {
+  token: string;
+  partOfSpeech?: EMeCabTypeOfSpeech;
 }
 
 export enum EJapaneseTokenPartOfSpeech {

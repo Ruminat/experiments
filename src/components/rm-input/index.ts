@@ -8,6 +8,7 @@ import { palette } from "../../styles/palette";
 import { fontSize } from "../../styles/text";
 import { cssBorder, cssBorderRadius, cssClass, cssPadding, cssTransition, size } from "../../styles/utils";
 import { tagName } from "./definitions";
+import { delay } from "../../lib/delays/utils";
 
 export const rmInputClasses = {
   default: cssClass("default"),
@@ -25,6 +26,8 @@ export class RmInput extends LitElement {
   @property({ type: Boolean }) public disabled = false;
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  public onSubmit: (name: any, value: string) => void = noop;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public onInput: (name: any, value: string) => void = noop;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public onChange: (name: any, value: string) => void = noop;
@@ -39,18 +42,45 @@ export class RmInput extends LitElement {
 
   render(): TemplateResult {
     return html`
-      <input
-        class="rm-input ${this.inputState} ${this.errorMessage ? "error" : ""}"
-        placeholder="${this.placeholder}"
-        value="${this.value}"
-        ?disabled=${this.disabled}
-        @input=${this.handleInput}
-        @change=${this.handleChange}
-        @keyup=${this.handleOnKeyUp}
-      >
-      ${this.errorMessage ? html`<div class="error-message">${this.errorMessage}</div>` : null}
+      <form action="${this.submit}">
+        <input
+          class="rm-input ${this.inputState} ${this.errorMessage ? "error" : ""}"
+          placeholder="${this.placeholder}"
+          value="${this.value}"
+          ?disabled=${this.disabled}
+          @input=${this.handleInput}
+          @change=${this.handleChange}
+          @keyup=${this.handleOnKeyUp}
+        >
+        ${this.errorMessage ? html`<div class="error-message">${this.errorMessage}</div>` : null}
+      </form>
     `;
   }
+
+  public connectedCallback(): void {
+    super.connectedCallback();
+    delay(0).then(() => {
+      const $form = this.shadowRoot?.querySelector("form");
+      if ($form) {
+        $form.addEventListener("submit", this.submit);
+      }
+    });
+  }
+
+  public disconnectedCallback(): void {
+    super.disconnectedCallback();
+    const $form = this.shadowRoot?.querySelector("form");
+    if ($form) {
+      $form.removeEventListener("submit", this.submit);
+    }
+  }
+
+  private submit = (event: Event): void => {
+    event.preventDefault();
+    event.stopPropagation();
+
+    this.onSubmit(this.name, this.getValue());
+  };
 
   protected getValue = (): string => {
     if (this.$input) {

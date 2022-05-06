@@ -1,44 +1,41 @@
 
 import { css, html, LitElement, TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
-import "../../components/pages-navigation-menu";
+import "../../components/rm-page";
 import "../../components/rm-button";
 import "../../components/rm-empty-state";
 import "./components/ProcessedJapaneseText";
 import "../../components/rm-input";
-import { isEnterOnly } from '../../common/keyboard/utils';
-import { svgJapaneseExperiment } from "../../components/rm-icon/icons";
-import { commonStyles, pageStyles } from '../../styles/common';
+import { svgJapaneseExperiment, svgGithub } from "../../components/rm-icon/icons";
+import { commonStyles } from '../../styles/common';
 import { palette } from '../../styles/palette';
 import { cssFlexFullAlign, cssSquare, size } from "../../styles/utils";
 import { SimplificationController } from './controllers/Simplification';
-import { EJapaneseFormFields, tagName } from "./definitions";
+import { EJapaneseFormFields, tagName, defaultFormValues } from "./definitions";
 
 @customElement(tagName)
 export class PageExperimentJapanese extends LitElement {
-  private formValues = {
-    [EJapaneseFormFields.INPUT]: "",
-  };
+  private formValues = defaultFormValues;
 
   private simplification = new SimplificationController(this);
 
-  protected render() {
+  protected render(): TemplateResult {
     return html`
-      <div class="page">
-        <pages-navigation-menu></pages-navigation-menu>
+      <rm-page>
+        ${this.renderInfo()}
 
-        <div class="page-content">
-          <h2 class="page-header">
-            <rm-icon class="header-icon" .icon=${svgJapaneseExperiment}></rm-icon>
-            Japanese Language Tools
-          </h2>
-          ${this.renderInput()}
+        <div class="delimiter"></div>
 
-          <div class="delimiter"></div>
+        <h2 class="page-header">
+          <rm-icon class="header-icon" .icon=${svgJapaneseExperiment}></rm-icon>
+          Japanese Language Tools
+        </h2>
+        ${this.renderInput()}
 
-          ${this.renderContent()}
-        </div>
-      </div>
+        <div class="delimiter"></div>
+
+        ${this.renderContent()}
+      </rm-page>
     `;
   }
 
@@ -51,7 +48,7 @@ export class PageExperimentJapanese extends LitElement {
           .name=${EJapaneseFormFields.INPUT}
           .onInput=${this.inputValueChanged}
           .value=${this.formValues[EJapaneseFormFields.INPUT]}
-          @keyup=${this.onKeyUp}
+          .onSubmit=${this.submit}
         ></rm-input>
 
         <rm-button
@@ -64,14 +61,30 @@ export class PageExperimentJapanese extends LitElement {
     `;
   };
 
-  private inputValueChanged = (field: EJapaneseFormFields, value: string): void => {
-    this.formValues[field] = value;
+  private renderInfo = (): TemplateResult => {
+    return html`
+      <div class="info-block">
+        <div class="info-block-header">Links to check out</div>
+        <div class="resources-links">
+          ${this.renderGitHubLink("Server", "https://github.com/Ruminat/Japanese-simplification")}
+          ${this.renderGitHubLink("Web App", "https://github.com/Ruminat/experiments")}
+          ${this.renderGitHubLink("Read the paper", "https://github.com/Ruminat/master-thesis")}
+        </div>
+      </div>
+    `;
   };
 
-  private onKeyUp = (event: KeyboardEvent): void => {
-    if (isEnterOnly(event)) {
-      this.submit();
-    }
+  private renderGitHubLink = (title: string, url: string): TemplateResult => {
+    return html`
+      <a class="resource-link" href="${url}" target="_blank">
+        <rm-icon class="resource-icon" .icon=${svgGithub}></rm-icon>
+        <span>${title}</span>
+      </a>
+    `;
+  };
+
+  private inputValueChanged = (field: EJapaneseFormFields, value: string): void => {
+    this.formValues[field] = value;
   };
 
   private submit = (): void => {
@@ -80,27 +93,17 @@ export class PageExperimentJapanese extends LitElement {
   };
 
   private renderContent = (): TemplateResult => {
-    if (!this.simplification.isLoading && !this.simplification.result) return this.renderEmptyState();
     return html`
       <processed-japanese-text
         .processedData=${this.simplification.result}
+        .error=${this.simplification.error}
         .isLoading=${this.simplification.isLoading}
       ></processed-japanese-text>
     `;
   };
 
-  private renderEmptyState = (): TemplateResult => {
-    return html`
-      <rm-empty-state>
-        <div>Type the Japanese text you want to simplify in the input above and press <kbd>Enter</kbd></div>
-        <div>(e.g. 知識豊富な人は実は馬鹿である)</div>
-      </rm-empty-state>
-    `;
-  };
-
   static styles = css`
     ${commonStyles}
-    ${pageStyles}
 
     .page-header {
       ${cssFlexFullAlign()};
@@ -130,6 +133,30 @@ export class PageExperimentJapanese extends LitElement {
       margin-top: ${size(4)};
       margin-bottom: ${size(2)};
       border-top: 1px solid ${palette.gray10};
+    }
+
+    .info-block {
+      ${cssFlexFullAlign()};
+      flex-direction: column;
+    }
+
+    .info-block-header {
+      color: ${palette.gray50};
+      text-align: center;
+      margin-bottom: ${size(1)};
+    }
+
+    .resource-icon {
+      margin-right: ${size(1)};
+    }
+
+    .resources-links {
+      display: flex;
+      gap: ${size(4)};
+    }
+
+    .resource-link {
+      ${cssFlexFullAlign()};
     }
   `;
 }

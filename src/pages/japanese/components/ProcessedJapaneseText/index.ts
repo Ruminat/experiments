@@ -10,11 +10,16 @@ import { TJapaneseToken } from "./../../models/JapaneseToken/definitions";
 import { japanesePartOfSpeechToColor } from "./../../models/JapaneseToken/utils";
 import { getTranslationUrl } from "./../../models/Translation/utils";
 import { tagName } from "./definitions";
+import "../../../../components/rm-empty-state";
+import "../../../../components/rm-error-state";
 
 @customElement(tagName)
 export class ProcessedJapaneseText extends LitElement {
   @property({ type: Boolean })
   public isLoading = false;
+
+  @property({ type: String })
+  public error?: string;
 
   @property({ type: Object })
   public processedData?: TSimplifiedResult;
@@ -23,13 +28,36 @@ export class ProcessedJapaneseText extends LitElement {
     return html`
       <div class="processed-info">
         <div class="processed-info-wrapper">
-          ${!this.isLoading && this.processedData ? this.renderContent(this.processedData) : this.renderLoadingState()}
+          ${this.renderContent()}
         </div>
       </div>
     `;
   }
 
-  private renderContent = (processedData: TSimplifiedResult): TemplateResult => {
+  private renderContent = (): TemplateResult | null => {
+    if (this.error) return this.renderError(this.error);
+    if (this.processedData) return this.renderSimplificationContent(this.processedData);
+    if (this.isLoading) return this.renderLoadingState();
+
+    return this.renderEmptyState();
+  };
+
+  private renderError = (error: string): TemplateResult => {
+    return html`
+      <rm-error-state>${error}</rm-error-state>
+    `;
+  };
+
+  private renderEmptyState = (): TemplateResult => {
+    return html`
+      <rm-empty-state>
+        <div>Type the Japanese text you want to simplify in the input above and press <kbd>Enter</kbd></div>
+        <div>(e.g. 知識豊富な人は実は馬鹿である)</div>
+      </rm-empty-state>
+    `;
+  };
+
+  private renderSimplificationContent = (processedData: TSimplifiedResult): TemplateResult => {
     return html`
       <div class="processed-title">Your text</div>
       ${this.renderTranslationLink(processedData.originalText)}
@@ -63,7 +91,7 @@ export class ProcessedJapaneseText extends LitElement {
     return html`<div class="tokens">${tokens.map((token) => this.renderToken(token))}</div>`;
   };
 
-  protected renderToken = (token: TJapaneseToken): TemplateResult => {
+  private renderToken = (token: TJapaneseToken): TemplateResult => {
     const color = japanesePartOfSpeechToColor(token.partOfSpeech);
     const backgroundStyle = color ? `background: ${color};` : "";
     return html`<span class="token" style="${backgroundStyle}">${token.content}</span>`;

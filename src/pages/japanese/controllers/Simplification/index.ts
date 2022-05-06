@@ -41,11 +41,11 @@ export class SimplificationController implements ReactiveController {
       if (result instanceof Error) throw result;
 
       this.result = fromBackendSimplifiedResult(result);
-      this.isLoading = false;
     } catch (error) {
       console.log(`simplify(${sentence}) errror:`, error);
       this.error = (error as Error).message;
     } finally {
+      this.isLoading = false;
       this.host.requestUpdate();
     }
   }

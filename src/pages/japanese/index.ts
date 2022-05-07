@@ -12,6 +12,7 @@ import { palette } from '../../styles/palette';
 import { cssFlexFullAlign, cssSquare, size } from "../../styles/utils";
 import { SimplificationController } from './controllers/Simplification';
 import { EJapaneseFormFields, tagName, defaultFormValues } from "./definitions";
+import { preHTML } from '../../lib/lit/preHTML';
 
 @customElement(tagName)
 export class PageExperimentJapanese extends LitElement {
@@ -20,7 +21,7 @@ export class PageExperimentJapanese extends LitElement {
   private simplification = new SimplificationController(this);
 
   protected render(): TemplateResult {
-    return html`
+    return preHTML`
       <rm-page>
         ${this.renderInfo()}
 

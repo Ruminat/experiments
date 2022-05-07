@@ -2,7 +2,7 @@
 import { css, html, LitElement, TemplateResult } from 'lit';
 import { svgJapaneseExperiment, svgGithub } from "../../components/rm-icon/icons";
 import { commonStyles } from '../../styles/common';
-import { palette } from '../../styles/palette';
+import { palette, colors } from '../../styles/palette';
 import { cssFlexFullAlign, cssSquare, size } from "../../styles/utils";
 import { SimplificationController } from './controllers/Simplification';
 import { EJapaneseFormFields, tagName, defaultFormValues } from "./definitions";
@@ -142,7 +142,7 @@ export class PageExperimentJapanese extends LitElement {
     }
 
     .info-block-header {
-      color: ${palette.gray50};
+      color: ${colors.secondaryText};
       text-align: center;
       margin-bottom: ${size(1)};
     }

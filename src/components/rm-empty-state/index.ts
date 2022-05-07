@@ -2,7 +2,7 @@
 import { css, html, LitElement, TemplateResult } from 'lit';
 import { tagName } from "./definitions";
 import { cssBorderRadius, cssFlexFullAlign, size } from '../../styles/utils';
-import { palette } from '../../styles/palette';
+import { palette, colors } from '../../styles/palette';
 import { customElement } from '../../lib/lit/customElement';
 
 @customElement(tagName)
@@ -24,7 +24,7 @@ export class RmEmptyState extends LitElement {
       cursor: default;
       background: ${palette.gray01};
       ${cssBorderRadius()};
-      color: ${palette.gray50};
+      color: ${colors.secondaryText};
       text-align: center;
     }
   `;

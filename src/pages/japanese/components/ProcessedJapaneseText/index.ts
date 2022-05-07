@@ -45,7 +45,7 @@ export class ProcessedJapaneseText extends LitElement {
   };
 
   private renderError = (error: string): TemplateResult => {
-    return preHTML/* html */ `<${RmErrorState}>${error}</${RmErrorState}>`;
+    return preHTML`<${RmErrorState}>${error}</${RmErrorState}>`;
   };
 
   private renderEmptyState = (): TemplateResult => {

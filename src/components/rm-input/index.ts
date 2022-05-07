@@ -135,7 +135,7 @@ export class RmInput extends LitElement {
       outline: none;
       font-family: var(--mainFont);
 
-      ${cssTransition()};
+      transition: border-color 100ms, color 100ms, border-radius 100ms;
       resize: none;
     }
     input:focus {

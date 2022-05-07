@@ -106,7 +106,7 @@ export class RmTextarea extends LitElement {
       ${cssBorderRadius()};
       outline: none;
 
-      ${cssTransition()};
+      transition: border-color 100ms, color 100ms, border-radius 100ms;
       resize: none;
     }
     textarea.rm-textarea.${rmTextareaClasses.error.css} { border-color: ${palette.red50}; }

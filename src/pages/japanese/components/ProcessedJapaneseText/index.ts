@@ -1,7 +1,6 @@
 
-import "../../../../components/rm-skeleton";
 import { css, html, LitElement, TemplateResult } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 import { commonStyles } from '../../../../styles/common';
 import { palette } from "../../../../styles/palette";
 import { cssFlexFullAlign, cssSizes, size } from "../../../../styles/utils";
@@ -10,8 +9,11 @@ import { TJapaneseToken } from "./../../models/JapaneseToken/definitions";
 import { japanesePartOfSpeechToColor } from "./../../models/JapaneseToken/utils";
 import { getTranslationUrl } from "./../../models/Translation/utils";
 import { tagName } from "./definitions";
-import "../../../../components/rm-empty-state";
-import "../../../../components/rm-error-state";
+import { customElement } from "../../../../lib/lit/customElement";
+import { RmEmptyState } from '../../../../components/rm-empty-state';
+import { preHTML } from '../../../../lib/lit/preHTML';
+import { RmErrorState } from '../../../../components/rm-error-state';
+import { RmSkeleton } from '../../../../components/rm-skeleton';
 
 @customElement(tagName)
 export class ProcessedJapaneseText extends LitElement {
@@ -43,17 +45,15 @@ export class ProcessedJapaneseText extends LitElement {
   };
 
   private renderError = (error: string): TemplateResult => {
-    return html`
-      <rm-error-state>${error}</rm-error-state>
-    `;
+    return preHTML/* html */ `<${RmErrorState}>${error}</${RmErrorState}>`;
   };
 
   private renderEmptyState = (): TemplateResult => {
-    return html`
-      <rm-empty-state>
+    return preHTML/* html */ `
+      <${RmEmptyState}>
         <div>Type the Japanese text you want to simplify in the input above and press <kbd>Enter</kbd></div>
         <div>(e.g. 知識豊富な人は実は馬鹿である)</div>
-      </rm-empty-state>
+      </${RmEmptyState}>
     `;
   };
 
@@ -69,13 +69,13 @@ export class ProcessedJapaneseText extends LitElement {
   };
 
   private renderLoadingState = (): TemplateResult => {
-    return html`
+    return preHTML/* html */ `
       <div class="processed-title">Your text</div>
-      <rm-skeleton .height=${2} .width=${16}></rm-skeleton>
-      <rm-skeleton .height=${3}></rm-skeleton>
+      <${RmSkeleton} class="skeleton" .height=${2} .width=${16}></${RmSkeleton}>
+      <${RmSkeleton} class="skeleton" .height=${3}></${RmSkeleton}>
       <div class="processed-title">Simplified version</div>
-      <rm-skeleton .height=${2} .width=${16}></rm-skeleton>
-      <rm-skeleton .height=${3}></rm-skeleton>
+      <${RmSkeleton} class="skeleton" .height=${2} .width=${16}></${RmSkeleton}>
+      <${RmSkeleton} class="skeleton" .height=${3}></${RmSkeleton}>
     `;
   };
 
@@ -131,14 +131,8 @@ export class ProcessedJapaneseText extends LitElement {
       background: ${palette.gray01};
     }
 
-    rm-skeleton + rm-skeleton {
+    .skeleton + .skeleton {
       margin-top: ${size(1)};
     }
   `;
-}
-
-declare global {
-  interface HTMLElementTagNameMap {
-    [tagName]: ProcessedJapaneseText;
-  }
 }

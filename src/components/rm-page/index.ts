@@ -1,10 +1,10 @@
 
 import { css, html, LitElement, CSSResultGroup } from 'lit';
-import { customElement } from 'lit/decorators.js';
 import { commonStyles } from '../../styles/common';
 import { size, cssMedia, cssPadding } from "../../styles/utils";
 import { tagName } from "./definitions";
 import "../pages-navigation-menu";
+import { customElement } from '../../lib/lit/customElement';
 
 @customElement(tagName)
 export class RmPage extends LitElement {

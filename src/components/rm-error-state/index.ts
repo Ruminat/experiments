@@ -1,9 +1,9 @@
 
 import { css, html, LitElement, TemplateResult } from 'lit';
-import { customElement } from 'lit/decorators.js';
 import { tagName } from "./definitions";
 import { cssBorderRadius, cssFlexFullAlign, size } from '../../styles/utils';
 import { palette } from '../../styles/palette';
+import { customElement } from '../../lib/lit/customElement';
 
 @customElement(tagName)
 export class RmErrorState extends LitElement {
@@ -30,10 +30,4 @@ export class RmErrorState extends LitElement {
       cursor: default;
     }
   `;
-}
-
-declare global {
-  interface HTMLElementTagNameMap {
-    [tagName]: RmErrorState;
-  }
 }

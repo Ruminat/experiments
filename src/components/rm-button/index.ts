@@ -1,9 +1,10 @@
 
 import "../rm-loading-element";import { LitElement, css, html, TemplateResult } from "lit";
-import { customElement, property } from "lit/decorators.js";
+import { property } from "lit/decorators.js";
 import { palette } from "../../styles/palette";
-import { cssBorder, cssBorderRadius, cssClass, cssSquare, cssTransition, size } from "../../styles/utils";
+import { cssBorder, cssBorderRadius, cssClass, cssTransition, size } from "../../styles/utils";
 import { tagName } from "./definitions";
+import { customElement } from "../../lib/lit/customElement";
 
 export const rmButtonThemes = {
   default: cssClass("default"),

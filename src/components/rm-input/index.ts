@@ -1,5 +1,5 @@
 import { LitElement, css, html, TemplateResult } from "lit";
-import { customElement, property, state } from "lit/decorators.js";
+import { property, state } from "lit/decorators.js";
 import { TFormValidator } from "../../common/forms/definitions";
 import { hasValidationError } from "../../common/forms/utils";
 import { noop } from "../../lib/functions/utils";
@@ -9,6 +9,7 @@ import { fontSize } from "../../styles/text";
 import { cssBorder, cssBorderRadius, cssClass, cssPadding, cssTransition, size } from "../../styles/utils";
 import { tagName } from "./definitions";
 import { delay } from "../../lib/delays/utils";
+import { customElement } from "../../lib/lit/customElement";
 
 export const rmInputClasses = {
   default: cssClass("default"),
@@ -163,8 +164,8 @@ export class RmInput extends LitElement {
   `;
 }
 
-declare global {
-  interface HTMLElementTagNameMap {
-    [tagName]: RmInput;
-  }
-}
+// declare global {
+//   interface HTMLElementTagNameMap {
+//     [tagName]: RmInput;
+//   }
+// }

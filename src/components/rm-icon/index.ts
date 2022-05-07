@@ -1,9 +1,10 @@
 
 import { css, html, LitElement, TemplateResult } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 import { tagName, TIcon } from "./definitions";
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { cssFlexFullAlign, cssSquare } from '../../styles/utils';
+import { customElement } from '../../lib/lit/customElement';
 
 @customElement(tagName)
 export class RmIcon extends LitElement {
@@ -26,10 +27,4 @@ export class RmIcon extends LitElement {
       height: 100%;
     }
   `;
-}
-
-declare global {
-  interface HTMLElementTagNameMap {
-    [tagName]: RmIcon;
-  }
 }

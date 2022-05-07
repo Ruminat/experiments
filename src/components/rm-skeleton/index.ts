@@ -1,6 +1,7 @@
 
 import { css, html, LitElement, TemplateResult } from "lit";
-import { customElement, property } from "lit/decorators.js";
+import { property } from "lit/decorators.js";
+import { customElement } from "../../lib/lit/customElement";
 import { colors } from "../../styles/palette";
 import { cssBorderRadius, cssSize } from "../../styles/utils";
 import { tagName } from "./definitions";
@@ -41,10 +42,4 @@ export class RmSkeleton extends LitElement {
       }
     }
   `;
-}
-
-declare global {
-  interface HTMLElementTagNameMap {
-    [tagName]: RmSkeleton;
-  }
 }

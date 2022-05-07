@@ -1,11 +1,5 @@
 
 import { css, html, LitElement, TemplateResult } from 'lit';
-import { customElement } from 'lit/decorators.js';
-import "../../components/rm-page";
-import "../../components/rm-button";
-import "../../components/rm-empty-state";
-import "./components/ProcessedJapaneseText";
-import "../../components/rm-input";
 import { svgJapaneseExperiment, svgGithub } from "../../components/rm-icon/icons";
 import { commonStyles } from '../../styles/common';
 import { palette } from '../../styles/palette';
@@ -13,6 +7,12 @@ import { cssFlexFullAlign, cssSquare, size } from "../../styles/utils";
 import { SimplificationController } from './controllers/Simplification';
 import { EJapaneseFormFields, tagName, defaultFormValues } from "./definitions";
 import { preHTML } from '../../lib/lit/preHTML';
+import { RmInput } from '../../components/rm-input';
+import { RmButton } from '../../components/rm-button';
+import { RmIcon } from '../../components/rm-icon';
+import { ProcessedJapaneseText } from './components/ProcessedJapaneseText';
+import { RmPage } from '../../components/rm-page';
+import { customElement } from '../../lib/lit/customElement';
 
 @customElement(tagName)
 export class PageExperimentJapanese extends LitElement {
@@ -21,14 +21,14 @@ export class PageExperimentJapanese extends LitElement {
   private simplification = new SimplificationController(this);
 
   protected render(): TemplateResult {
-    return preHTML`
-      <rm-page>
+    return preHTML/* html */ `
+      <${RmPage}>
         ${this.renderInfo()}
 
         <div class="delimiter"></div>
 
         <h2 class="page-header">
-          <rm-icon class="header-icon" .icon=${svgJapaneseExperiment}></rm-icon>
+          <${RmIcon} class="header-icon" .icon=${svgJapaneseExperiment}></${RmIcon}>
           Japanese Language Tools
         </h2>
         ${this.renderInput()}
@@ -36,28 +36,28 @@ export class PageExperimentJapanese extends LitElement {
         <div class="delimiter"></div>
 
         ${this.renderContent()}
-      </rm-page>
+      </${RmPage}>
     `;
   }
 
   private renderInput = (): TemplateResult => {
-    return html`
+    return preHTML/* html */ `
       <div class="input-bar">
-        <rm-input
+        <${RmInput}
           class="japanese-input"
           .placeholder="${"Put you Japanese text here"}"
           .name=${EJapaneseFormFields.INPUT}
           .onInput=${this.inputValueChanged}
           .value=${this.formValues[EJapaneseFormFields.INPUT]}
           .onSubmit=${this.submit}
-        ></rm-input>
+        ></${RmInput}>
 
-        <rm-button
+        <${RmButton}
           @click=${this.submit}
           .isLoading=${this.simplification.isLoading}
         >
           Simplify
-        </rm-button>
+        </${RmButton}>
       </div>
     `;
   };
@@ -76,9 +76,9 @@ export class PageExperimentJapanese extends LitElement {
   };
 
   private renderGitHubLink = (title: string, url: string): TemplateResult => {
-    return html`
+    return preHTML/* html */ `
       <a class="resource-link" href="${url}" target="_blank">
-        <rm-icon class="resource-icon" .icon=${svgGithub}></rm-icon>
+        <${RmIcon} class="resource-icon" .icon=${svgGithub}></${RmIcon}>
         <span>${title}</span>
       </a>
     `;
@@ -94,12 +94,12 @@ export class PageExperimentJapanese extends LitElement {
   };
 
   private renderContent = (): TemplateResult => {
-    return html`
-      <processed-japanese-text
+    return preHTML/* html */ `
+      <${ProcessedJapaneseText}
         .processedData=${this.simplification.result}
         .error=${this.simplification.error}
         .isLoading=${this.simplification.isLoading}
-      ></processed-japanese-text>
+      ></${ProcessedJapaneseText}>
     `;
   };
 
@@ -160,12 +160,6 @@ export class PageExperimentJapanese extends LitElement {
       ${cssFlexFullAlign()};
     }
   `;
-}
-
-declare global {
-  interface HTMLElementTagNameMap {
-    [tagName]: PageExperimentJapanese;
-  }
 }
 
 document.body.appendChild(document.createElement(tagName));

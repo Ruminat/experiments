@@ -35,5 +35,3 @@ async function loadPageDefinition(loader: TPageLoader): Promise<TPageDefinition>
 loadCurrentPageView(location.pathname).then((result) => {
   render(result, document.body);
 });
-
-// render(loadCurrentPageView(location.pathname), document.body);

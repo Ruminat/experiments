@@ -1,14 +1,16 @@
 
-import "../rm-icon";
 import { LitElement, css, html, TemplateResult } from "lit";
-import { customElement, property } from "lit/decorators.js";
+import { property } from "lit/decorators.js";
 import { commonStyles } from "../../styles/common";
 import { palette } from "../../styles/palette";
 import { cssTransition, cssFlexAlignItems, cssFlexFullAlign, size, cssPadding } from "../../styles/utils";
 import { ENavigationPages, tagName } from "./definitions";
 import { svgHome, svgInfo } from "../rm-icon/icons";
-import { getPageHomeUrl } from "../../pages/home/route";
-import { getPageAboutUrl } from "../../pages/about/route";
+import { customElement } from "../../lib/lit/customElement";
+import { preHTML } from "../../lib/lit/preHTML";
+import { RmIcon } from "../rm-icon";
+import { getPageHomeUrl } from "../../apps/experiments/pages/home/route";
+import { getPageAboutUrl } from "../../apps/experiments/pages/about/route";
 
 @customElement(tagName)
 export class PagesNavigationMenu extends LitElement {
@@ -25,14 +27,14 @@ export class PagesNavigationMenu extends LitElement {
   }
 
   protected renderMenuLinks = () => {
-    return html`
+    return preHTML/* html */ `
       <div class="menu-links">
         <a href="${getPageHomeUrl()}" class="menu-link ${this.activeCls(ENavigationPages.HOME)}">
-          <rm-icon .icon=${svgHome}></rm-icon>
+          <${RmIcon} class="icon" .icon=${svgHome}></${RmIcon}>
           Home
         </a>
         <a href="${getPageAboutUrl()}" class="menu-link ${this.activeCls(ENavigationPages.ABOUT)}">
-          <rm-icon .icon=${svgInfo}></rm-icon>
+          <${RmIcon} class="icon" .icon=${svgInfo}></${RmIcon}>
           About
         </a>
       </div>
@@ -63,15 +65,9 @@ export class PagesNavigationMenu extends LitElement {
       color: ${palette.white};
     }
 
-    .menu-link rm-icon {
+    .menu-link .icon {
       fill: ${palette.white};
       margin-right: ${size(1)};
     }
   `;
-}
-
-declare global {
-  interface HTMLElementTagNameMap {
-    [tagName]: PagesNavigationMenu;
-  }
 }

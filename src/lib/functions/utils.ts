@@ -1,12 +1,12 @@
 import { TFunction } from "./definitions";
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const noop = (..._args: any[]): any => {};
+// eslint-disable-next-line
+export const noop: TFunction = () => {};
 
 export const tryExpr = (fn: TFunction, defaultValue = null) => {
   try {
-    return fn()
+    return fn();
   } catch (_) {
-    return defaultValue
+    return defaultValue;
   }
-}
+};

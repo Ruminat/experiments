@@ -6,7 +6,7 @@ import { noop } from "../../lib/functions/utils";
 import { queryExistingElement } from "../../lib/lit/utils";
 import { palette } from "../../styles/palette";
 import { fontSize } from "../../styles/text";
-import { cssBorder, cssBorderRadius, cssClass, cssPadding, cssTransition, size } from "../../styles/utils";
+import { cssBorder, cssBorderRadius, cssClass, cssPadding, size } from "../../styles/utils";
 import { tagName } from "./definitions";
 import { delay } from "../../lib/delays/utils";
 import { customElement } from "../../lib/lit/customElement";
@@ -99,7 +99,7 @@ export class RmInput extends LitElement {
 
   protected handleChange = (): void => {
     this.onChange(this.name, this.getValue());
-  }
+  };
 
   protected handleOnKeyUp = (event: KeyboardEvent): void => {
     this.onKeyUp(this.name, event);
@@ -135,7 +135,7 @@ export class RmInput extends LitElement {
       outline: none;
       font-family: var(--mainFont);
 
-      transition: border-color 100ms, color 100ms, border-radius 100ms;
+      transition: border-color 100ms, color 100ms, background-color 100ms;
       resize: none;
     }
     input:focus {
@@ -163,9 +163,3 @@ export class RmInput extends LitElement {
     }
   `;
 }
-
-// declare global {
-//   interface HTMLElementTagNameMap {
-//     [tagName]: RmInput;
-//   }
-// }

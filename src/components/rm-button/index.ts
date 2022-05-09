@@ -1,5 +1,6 @@
 
-import "../rm-loading-element";import { LitElement, css, html, TemplateResult } from "lit";
+import "../rm-loading-element";
+import { LitElement, css, html, TemplateResult } from "lit";
 import { property } from "lit/decorators.js";
 import { palette } from "../../styles/palette";
 import { cssBorder, cssBorderRadius, cssClass, cssTransition, size } from "../../styles/utils";
@@ -49,7 +50,7 @@ export class RmButton extends LitElement {
       ${cssBorder()};
       ${cssBorderRadius()};
 
-      ${cssTransition('background')};
+      ${cssTransition("background")};
       cursor: pointer;
     }
 
@@ -86,10 +87,4 @@ export class RmButton extends LitElement {
       opacity: 0 !important;
     }
   `;
-}
-
-declare global {
-  interface HTMLElementTagNameMap {
-    [tagName]: RmButton;
-  }
 }

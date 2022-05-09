@@ -1,44 +1,38 @@
-import express from 'express';
-import path from 'path';
+const express = require("express");
+const webpack = require("webpack");
+const webpackDevMiddleware = require("webpack-dev-middleware");
+const history = require('connect-history-api-fallback');
+
+const PORT = 3000;
 
 const app = express();
-const currentDir = path.resolve();
-const port = 3000;
+const getConfig = require("../webpack/config.js");
 
-app.use('/assets', express.static('assets'));
-app.use('/dist', express.static('dist'));
+const webpackEnv = { production: false };
+const config = getConfig(webpackEnv);
+const compiler = webpack(config);
 
-express.static.mime.define({
-  'text/html': ['html'],
-  'text/css': ['css'],
-  'text/javascript': ['js'],
-  'image/svg+xml': ['svg'],
-  'image/svg': ['svg'],
-  'image/png': ['png'],
-  'image/jpg': ['jpg'],
-  'image/jpeg': ['jpeg'],
+// Tell express to use the webpack-dev-middleware and use the webpack.config.js
+// configuration file as a base.
+const wdm = webpackDevMiddleware(compiler, {
+  publicPath: config.output.publicPath,
 });
 
-app.set('view engine', 'ejs');
-app.set('views', path.join(currentDir, '/server/templates'));
+app.use(history());
+app.use(wdm);
 
-makeRoute('/', { title: 'Web Experiments', pageName: 'home' });
-makeRoute('/about', { title: 'About', pageName: 'about' });
-makeRoute('/japanese', { title: 'Japanese Tools', pageName: 'japanese' });
-
-function makeRoute(route, { title = 'Web Experiments', basePath = '', faviconPath = 'favicon/icon', pageName } = {}) {
-  app.get(route, (req, res) => {
-    res.render('index.ejs', { title, basePath, faviconPath, pageName });
-  })
-}
-
-// app.get('/', (req, res) => {
-//   res.render('index.ejs', { title: 'Web Experiments', basePath: '.', pageName: 'home' });
-// })
-// app.get('/about', (req, res) => {
-//   res.render('index.ejs', { title: 'About', basePath: '.', pageName: 'about' });
+// MrBar answer.
+// app.use((req, res, next) => {
+//   // if (!/(\.(?!html)\w+$|__webpack.*)/.test(req.url)) {
+//     req.url = '/' // this would make express-js serve index.html
+//   // }
+//   next()
 // })
 
-app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`);
+// app.use(require("webpack-hot-middleware")(compiler, {
+//   log: console.log, path: '/__webpack_hmr', heartbeat: 10 * 1000
+// }))
+
+app.listen(PORT, () => {
+  console.log(`The app is available at http://localhost:${PORT}\n`);
 });

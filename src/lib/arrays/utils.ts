@@ -2,7 +2,7 @@ export function generateArray<T>(length: number, fn: (i: number) => T) {
   return Array.from({ length }, (_, i) => fn(i));
 }
 
-const collator = new Intl.Collator(undefined, { numeric: true, sensitivity: 'base' });
+const collator = new Intl.Collator(undefined, { numeric: true, sensitivity: "base" });
 export const naturalCompare = collator.compare;
 export function naturalSort(arr: string[]): string[] {
   return arr.sort(naturalCompare);

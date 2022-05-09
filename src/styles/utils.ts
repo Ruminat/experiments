@@ -18,8 +18,8 @@ export const cssSquare = (sideSize: TCSSSize = 1): CSSResult => {
 
 export const cssMedia = (cssFn: (index: number, maxIndex: number, mediaSize: TCSSSize) => TCSS) => {
   return mediaSizesList.reduce((acc, curr, i) => {
-    return unsafeCSS(`${acc}\n@media (min-width: ${cssSize(curr)}) { ${cssFn(i + 1, mediaSizesList.length, curr)} }`)
-  }, unsafeCSS(``));
+    return unsafeCSS(`${acc}\n@media (min-width: ${cssSize(curr)}) { ${cssFn(i + 1, mediaSizesList.length, curr)} }`);
+  }, unsafeCSS(""));
 };
 
 export function cssSizes(top?: TCSSSize, right?: TCSSSize, bottom?: TCSSSize, left?: TCSSSize): CSSResult {
@@ -69,7 +69,7 @@ export const cssFlexFullAlign = (flex = "flex", align = "center") => unsafeCSS(`
 
 export const cssShadow = (offsetX = size(1), offsetY = offsetX, blurRadius = size(0.5), color = palette.gray10) => {
   return unsafeCSS(`box-shadow: ${cssSize(offsetX)} ${cssSize(offsetY)} ${cssSize(blurRadius)} ${color};`);
-}
+};
 
 export function cssClasses(classes: Record<string, string>): Record<string, CSSResult> {
   const result: Record<string, CSSResult> = {};
@@ -83,5 +83,13 @@ export function cssClass(cls: string): TCssClass {
   return {
     css: unsafeCSS(cls),
     toString: () => cls,
-  }
+  };
+}
+
+export function appendStyleToHead(cssString: string) {
+  const head = document.head || document.getElementsByTagName("head")[0];
+  const style = document.createElement("style");
+
+  head.appendChild(style);
+  style.appendChild(document.createTextNode(cssString));
 }

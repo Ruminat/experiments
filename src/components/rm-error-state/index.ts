@@ -1,9 +1,9 @@
 
-import { css, html, LitElement, TemplateResult } from 'lit';
+import { css, html, LitElement, TemplateResult } from "lit";
 import { tagName } from "./definitions";
-import { cssBorderRadius, cssFlexFullAlign, size } from '../../styles/utils';
-import { palette } from '../../styles/palette';
-import { customElement } from '../../lib/lit/customElement';
+import { cssBorderRadius, cssFlexFullAlign, size } from "../../styles/utils";
+import { palette } from "../../styles/palette";
+import { customElement } from "../../lib/lit/customElement";
 
 @customElement(tagName)
 export class RmErrorState extends LitElement {

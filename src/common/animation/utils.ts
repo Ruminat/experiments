@@ -12,7 +12,7 @@ export function animate(renderFn: (time: number, frequency: number) => void, { d
         renderFn(time, frequency);
         window.requestAnimationFrame(frameFn);
       }
-    }
+    };
 
     window.requestAnimationFrame(frameFn);
   });

@@ -1,4 +1,4 @@
-import { html, TemplateResult } from 'lit';
+import { html, TemplateResult } from "lit";
 
 type TParsedHtml = { strings: TemplateStringsArray; indexes: number[] };
 
@@ -44,6 +44,8 @@ function hasUselessIndexes(str: string): boolean {
 }
 
 function convertToTemplateStringsArray(strings: string[]): TemplateStringsArray {
+  // @ts-expect-error -- Lit requires the raw field
+  strings.raw = strings;
   return (strings as unknown) as TemplateStringsArray;
 }
 

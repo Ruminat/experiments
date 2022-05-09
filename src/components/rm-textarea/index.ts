@@ -5,7 +5,7 @@ import { hasValidationError } from "../../common/forms/utils";
 import { noop } from "../../lib/functions/utils";
 import { queryExistingElement } from "../../lib/lit/utils";
 import { palette } from "../../styles/palette";
-import { cssBorder, cssBorderRadius, cssClass, cssTransition, size } from "../../styles/utils";
+import { cssBorder, cssBorderRadius, cssClass, size } from "../../styles/utils";
 import { tagName } from "./definitions";
 
 export const rmTextareaClasses = {
@@ -70,7 +70,7 @@ export class RmTextarea extends LitElement {
 
   protected handleChange = (): void => {
     this.onChange(this.name, this.getValue());
-  }
+  };
 
   protected handleOnKeyUp = (event: KeyboardEvent): void => {
     this.onKeyUp(this.name, event);
@@ -102,11 +102,11 @@ export class RmTextarea extends LitElement {
       width: 100%;
       padding: ${size(2)};
       font-family: var(--mainFont);
-      ${cssBorder('2px', palette.gray10)};
+      ${cssBorder("2px", palette.gray10)};
       ${cssBorderRadius()};
       outline: none;
 
-      transition: border-color 100ms, color 100ms, border-radius 100ms;
+      transition: border-color 100ms, color 100ms, background-color 100ms;
       resize: none;
     }
     textarea.rm-textarea.${rmTextareaClasses.error.css} { border-color: ${palette.red50}; }
@@ -117,7 +117,7 @@ export class RmTextarea extends LitElement {
     }
 
     textarea.rm-textarea:focus {
-      ${cssBorder('2px', palette.blue50)};
+      ${cssBorder("2px", palette.blue50)};
     }
     textarea.rm-textarea.${rmTextareaClasses.error.css}:focus { border-color: ${palette.red100}; }
     textarea.rm-textarea.${rmTextareaClasses.success.css}:focus { border-color: ${palette.green100}; }

@@ -5,7 +5,7 @@ export function validationSuccess(): TFormValidationResult {
 }
 
 export function validationError(message: string): TFormValidationResult {
-  return { is: FORM_VALIDATION_ERROR, message }
+  return { is: FORM_VALIDATION_ERROR, message };
 }
 
 export function hasValidationError(result: TFormValidationResult): result is TFormValidationError {

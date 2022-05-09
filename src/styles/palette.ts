@@ -63,7 +63,7 @@ export const palette = {
 
   white: css`white`,
   black: css`black`,
-} as const
+} as const;
 
 export const colors = {
   skeleton: {
@@ -73,5 +73,6 @@ export const colors = {
     gradiend3: css`#ececec`,
   },
   primaryText: palette.black,
+  errorText: palette.red90,
   secondaryText: palette.gray50,
 };

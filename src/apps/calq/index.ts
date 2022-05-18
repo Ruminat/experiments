@@ -1,7 +1,7 @@
 
 import "../../components/rm-textarea";import "../../components/pages-navigation-menu";
 // import * as monaco from 'monaco-editor/esm/vs/editor/editor.api.js';
-import * as monaco from 'monaco-editor';
+// import * as monaco from 'monaco-editor';
 import { LitElement, html, css, TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { commonStyles, pageStyles } from '../../styles/common';
@@ -12,7 +12,7 @@ import { palette } from "../../styles/palette";
 @customElement(tagName)
 export class PageExperimentCalq extends LitElement {
   render(): TemplateResult {
-    console.log("N?", monaco);
+    // console.log("N?", monaco);
     return html`
       <div class="page">
         <pages-navigation-menu></pages-navigation-menu>

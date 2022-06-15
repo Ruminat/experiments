@@ -15,6 +15,19 @@ import { cssFlexFullAlign, cssSquare, size } from "../../../../styles/utils";
 import { ProcessedJapaneseText } from "../../components/ProcessedJapaneseText";
 import { SimplificationController } from "../../controllers/Simplification";
 import { defaultFormValues, EJapaneseFormFields, tagName } from "./definitions";
+// import AES from "crypto-js/aes";
+// import { enc } from "crypto-js";
+
+// // Encrypt
+// const ciphertext = AES.encrypt("my message", "secret key 123").toString();
+
+// console.log("HOBA!", ciphertext);
+
+// // Decrypt
+// const bytes = AES.decrypt(ciphertext, "secret key 123");
+// const originalText = bytes.toString(enc.Utf8);
+
+// console.log(originalText); // 'my message'
 
 @customElement(tagName)
 export class PageExperimentJapaneseView extends LitElement {

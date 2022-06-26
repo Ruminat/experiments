@@ -2,7 +2,8 @@ const express = require('express');
 const app = express();
 const path = require("path");
 
-const PORT = 8080;
+// const PORT = 8080;
+const PORT = 49204;
 const distPath = path.join(__dirname, "..", "dist");
 
 console.log("HOBA!", distPath);

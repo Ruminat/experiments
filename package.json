@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "description": "Some of my experiments",
   "scripts": {
+    "serve": "node ./server/production-server.js",
     "build": "npx webpack --config webpack/config.js --env production",
-    "start": "node server/index.js",
+    "start": "node ./server/dev-server.js",
     "lint": "npx eslint ./src"
   },
   "private": true,
@@ -32,6 +33,7 @@
   "dependencies": {
     "crypto-js": "^4.1.1",
     "lit": "^2.2.3",
-    "lodash": "^4.17.21"
+    "lodash": "^4.17.21",
+    "tippy.js": "^6.3.7"
   }
 }
